@@ -1,0 +1,350 @@
+﻿@model JoinEventViewModel
+@{
+    ViewData["Title"] = "Join";
+}
+
+<div class="row">
+
+    <div class="col-md-6 ask-section">
+
+        <h1 class="h4 ml-auto mr-auto mt-md-2"><strong>@Model.EventTitle</strong> <span class="code-mutted">@Model.EventCode</span></h1>
+        <span>Type your question</span>
+
+        <div class="container">
+            <form asp-area="participant" asp-controller="events" asp-action="ask" class="form" method="post">
+                <br />
+                <input asp-for="EventId" type="hidden">
+                <input asp-for="EventCode" type="hidden">
+                <div class="ask-form">
+                    <div class="form-group">
+                        <label asp-for="Question.Content" class="sr-only"></label>
+                        <textarea asp-for="Question.Content" placeholder=". . ." class="form-control" maxlength="256" rows="3" resize="none"></textarea>
+                        <span asp-validation-for="Question.Content" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="container">
+                            <div class="row ask-bottom">
+                                <div class="col-7">
+                                    <label asp-for="Question.ParticipantName" class="sr-only"></label>
+                                    <input asp-for="Question.ParticipantName" class="form-control" placeholder="Anonymous">
+                                </div>
+                                <div class="col-5">
+                                    <div class="float-right">
+                                        <button type="submit" class="btn btn-secondary pb-2">Send</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <span asp-validation-for="Question.ParticipantName" class="text-danger"></span>
+            </form>
+            <hr class="style5" />
+            <div id="poll-section swans-bg">
+                <p class="text-center h5">Poll section</p>
+                <div class="text-center">
+                    <a asp-area="participant" asp-controller="polls" asp-action="vote" asp-route-id="@Model.EventId" class="btn btn-outline-info">Polls</a>
+                </div>                
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 bright-bg h100">
+        <div class="row paradiso-bg swans">
+            <h4 class="ml-auto mr-auto">Questions: </h4>
+        </div>
+        <div class="row">
+            <div id="posts" class="questions">
+                @{
+                    foreach (var question in Model.Questions)
+                    {
+                        var identifictor = "question" + question.Id;
+                        <div id="@identifictor">
+                            <div class="mr-3">
+                                @question.Content
+                            </div>
+
+                            <div class="row mx-0">
+                                <span class="content-mutted">@question.PublishedOn</span>
+                                <span class="ml-3">@question.AuthorName</span>
+                                <span class="ml-auto mr-3">
+                                    <span id="button@(question.Id)">
+                                        @{
+                                            if (question.Replies.Any())
+                                            {
+                                                <a class="mx-2" data-toggle="collapse" href="#repliesFor@(question.Id)" role="button" aria-expanded="false" aria-controls="repliesFor@(question.Id)">
+                                                    <span class="font-weight-bold px-2">R</span>
+                                                </a>
+                                            }
+                                        }
+                                    </span>
+                                    <a data-toggle="collapse" href="#postReply@(question.Id)" role="button" aria-expanded="false" aria-controls="postReply@(question.Id)">
+                                        <i class="fa fa-reply"></i>
+                                    </a>
+                                </span>
+                            </div>
+
+                            <div class="collapse" id="postReply@(question.Id)">
+                                <div class="reply-form">
+                                    <form asp-area="participant" asp-controller="replies" asp-action="post" method="post" class="mr-3 ml-auto">
+                                        <div class="form-group">
+                                            <textarea asp-for="Reply.ReplyContent" name="replyContent" placeholder="Your reply ..." rows="2" maxlength="256"></textarea>
+                                        </div>
+                                        <div class="row mb-1">
+                                            <input asp-for="Reply.QuestionId" type="hidden" name="questionId" value="@question.Id" />
+                                            <input asp-for="EventId" type="hidden">
+                                            <input asp-for="EventCode" type="hidden">
+                                            <label asp-for="Reply.ReplyAuthor" class="sr-only"></label>
+                                            <input asp-for="Reply.ReplyAuthor" name="replyAuthor" class="author-reply border-0 ml-4 pl-2 paradiso swans-bg" placeholder="Anonymous">
+                                            <input type="submit" class="btn btn-sm btn-outline-info ml-auto mr-2" value="Send" />
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div class="collapse mt-3" id="repliesFor@(question.Id)">
+                                @{
+
+                                    foreach (var reply in question.Replies)
+                                    {
+                                        <div class="row replies">
+                                            <span>@reply.Content</span>
+                                            <span class="ml-auto paradiso">@reply.AuthorName</span>
+                                        </div>
+
+                                        <hr class="style4" />
+                                    }
+                                }
+                            </div>
+
+                            <hr class="style5" />
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*@section Scripts {
+
+   
+<partial name="_ValidationScriptsPartial" />
+<script>
+    (async function () {
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/questions")
+            .build();
+
+        connection.on("Callback", (question) => {
+
+            var q = JSON.parse(question);
+
+            console.log("q.id = ", q.id);
+            console.log("q.PublishedOn = ", q.PublishedOn);
+            console.log("q.AuthorName = ", q.AuthorName);
+
+
+
+            var postHtml = [
+                '<div class="mr-3">' + q.Content + '</div>',
+                '<div class="row mx-0"><span class="content-mutted">' + q.PublishedOn + '</span>',
+                '<span class="ml-3">' + q.AuthorName + '</span>',
+                '<span class="ml-auto mr-3">',
+                '<span id="button' + q.id + '"></span>',
+                '<a data-toggle="collapse" href="#postReply' + q.id + '" role="button" aria-expanded="false"',
+                'aria-controls="postReply' + q.id + '" ><i class="fa fa-reply"></i></a></span></div>',
+
+                '<div class="collapse" id="postReply' + q.id + '"><div class="reply-form">',
+                '<form method="post" class="mr-3 ml-auto" action="/participant/replies/post">',
+                '<div class="form-group">',
+                '<textarea name="replyContent" placeholder="Your reply ..." rows="2" maxlength="256" data-val="true"',
+                ' data-val-length="The ReplyContent must be at least 3 and at max 256 characters long." data-val-length-max="256"',
+                ' data-val-length-min="3" data-val-required="The ReplyContent field is required." id="Reply_ReplyContent"></textarea>',
+                '</div><div class="row mb-1">',
+                '<input name="questionId" value="' + q.id + '" data-val="true" data-val-required="The QuestionId field is required." id="Reply_QuestionId" type="hidden">',
+                '<input data-val="true" data-val-required="The EventId field is required." id="EventId" name="EventId" value="28" type="hidden">',
+                '<input id="EventCode" name="EventCode" value="simple" type="hidden">',
+                '<label class="sr-only" for="Reply_ReplyAuthor">Display name</label>',
+                '<input name="replyAuthor" class="author-reply border-0 ml-4 pl-2 paradiso swans-bg" placeholder="Anonymous" data-val="true"',
+                ' data-val-length=" Display name must be at least 3 and at max 32 characters long." data-val-length-max="32" data-val-length-min="3"',
+                ' data-val-required="The Display name field is required." id="Reply_ReplyAuthor" value="" type="text">',
+                '<input class="btn btn-sm btn-outline-info ml-auto mr-2" value="Send" type="submit"></div>',
+                '<input name="__RequestVerificationToken" value="CfDJ8KvrjKkBcnRFh-8I3CKtTWHIXDlvQO8pH4xo_HOA-4Kw25OY7bUQCbv2hazV9BS14sI75kv7Zt-9EJ8QSalWl2e-RWTT04peQT8a12MDgOLm2IlOg2eS_KReNaQKYLRmUthwV0EzInu48q_WRYwUakA" type="hidden"></form>',
+                '</div>',
+                '</div>',
+
+                '<div class="collapse mt-3" id="repliesFor' + q.id + '"></div>',
+
+                '<hr class="style5" />'
+            ].join('');
+
+            var identificator = "question" + q.id;
+
+            var div = document.createElement('div');
+
+            div.setAttribute('id', identificator);
+
+            div.innerHTML = postHtml;
+
+            document.getElementById('posts').appendChild(div);
+
+            if (q.Replies !== null) {
+
+                var rep = JSON.parse(q.Repliies);
+
+                console.log("reply =", rep.AuthorName);
+                console.log("reply =", rep.Content);
+            }
+
+        });
+
+        connection.on("AddReply", (reply) => {
+
+            var replyHtml = [
+                '<div class="row replies">',
+                '<span>' + reply.replyContent + '</span>',
+                '<span class="ml-auto paradiso">' + reply.replyAuthor + '</span></div><hr class="style4" />'
+            ].join('');
+
+            var repliesButton = [
+                '<a class="mx-2" data-toggle="collapse" href="#repliesFor' + reply.questionId +
+                '" role="button" aria-expanded="false" aria-controls="repliesFor' + reply.questionId + '">',
+                '<span class="font-weight-bold px-2">R</span></a>'
+            ].join('');
+
+            var button = "button" + reply.questionId;
+
+            document.getElementById(button).innerHTML = repliesButton;
+
+            var replyDiv = document.createElement('div');
+
+            replyDiv.innerHTML = replyHtml;
+
+            var identifictor = "repliesFor" + reply.questionId;
+
+            document.getElementById(identifictor).appendChild(replyDiv);
+
+        });
+
+        connection.on("DeleteQuestion", (questionId) => {
+            var identifictor = "question" + questionId;
+            var questionElement = document.getElementById(identifictor);
+            document.getElementById('posts').removeChild(questionElement);
+        });
+
+
+        await connection.start();
+
+        var eventCode = document.getElementById("EventCode").value;
+
+        await connection.invoke("JoinToGroup", eventCode);
+
+    })();
+
+</script>
+}*@
+
+
+@section Scripts {    
+
+        <partial name="_ValidationScriptsPartial" />
+        <script>
+            (async function () {
+                const connection = new signalR.HubConnectionBuilder()
+                    .withUrl("/questions")
+                    .build();
+
+                connection.on("Callback", (questionContent, publishedOn, authorName, id) => {
+                                        
+                    var postHtml = [
+                        '<div class="mr-3">' + questionContent + '</div>',
+                        '<div class="row mx-0"><span class="content-mutted">' + publishedOn + '</span>',
+                        '<span class="ml-3">' + authorName + '</span>',
+                        '<span class="ml-auto mr-3">',
+                        '<span id="button' + id +'"></span>',
+                        '<a data-toggle="collapse" href="#postReply' + id + '" role="button" aria-expanded="false"',
+                        'aria-controls="postReply' + id + '" ><i class="fa fa-reply"></i></a></span></div>',
+
+                        '<div class="collapse" id="postReply' + id + '"><div class="reply-form">',
+                        '<form method="post" class="mr-3 ml-auto" action="/participant/replies/post">',
+                        '<div class="form-group">',
+                        '<textarea name="replyContent" placeholder="Your reply ..." rows="2" maxlength="256" data-val="true"',
+                        ' data-val-length="The ReplyContent must be at least 3 and at max 256 characters long." data-val-length-max="256"',
+                        ' data-val-length-min="3" data-val-required="The ReplyContent field is required." id="Reply_ReplyContent"></textarea>',
+                        '</div><div class="row mb-1">',
+                        '<input name="questionId" value="' + id +'" data-val="true" data-val-required="The QuestionId field is required." id="Reply_QuestionId" type="hidden">',
+                        '<input data-val="true" data-val-required="The EventId field is required." id="EventId" name="EventId" value="28" type="hidden">',
+                        '<input id="EventCode" name="EventCode" value="simple" type="hidden">',
+                        '<label class="sr-only" for="Reply_ReplyAuthor">Display name</label>',
+                        '<input name="replyAuthor" class="author-reply border-0 ml-4 pl-2 paradiso swans-bg" placeholder="Anonymous" data-val="true"',
+                        ' data-val-length=" Display name must be at least 3 and at max 32 characters long." data-val-length-max="32" data-val-length-min="3"',
+                        ' data-val-required="The Display name field is required." id="Reply_ReplyAuthor" value="" type="text">',
+                        '<input class="btn btn-sm btn-outline-info ml-auto mr-2" value="Send" type="submit"></div>',
+                         '<input name="__RequestVerificationToken" value="CfDJ8KvrjKkBcnRFh-8I3CKtTWHIXDlvQO8pH4xo_HOA-4Kw25OY7bUQCbv2hazV9BS14sI75kv7Zt-9EJ8QSalWl2e-RWTT04peQT8a12MDgOLm2IlOg2eS_KReNaQKYLRmUthwV0EzInu48q_WRYwUakA" type="hidden"></form>',
+                            '</div>',
+                        '</div>',
+
+                        '<div class="collapse mt-3" id="repliesFor' + id +'"></div>',
+
+                        '<hr class="style5" />'
+                    ].join('');
+
+                    var identificator = "question" + id;
+
+                    var div = document.createElement('div');
+
+                    div.setAttribute('id', identificator);
+
+                    div.innerHTML = postHtml;
+
+                    document.getElementById('posts').appendChild(div);
+                    
+                });
+
+                connection.on("AddReply", (reply) => {
+
+                    var replyHtml = [
+                        '<div class="row replies">',
+                        '<span>' + reply.replyContent +'</span>',
+                        '<span class="ml-auto paradiso">' + reply.replyAuthor + '</span></div><hr class="style4" />'
+                    ].join('');
+
+                    var repliesButton = [
+                        '<a class="mx-2" data-toggle="collapse" href="#repliesFor' + reply.questionId +
+                        '" role="button" aria-expanded="false" aria-controls="repliesFor' + reply.questionId + '">',
+                        '<span class="font-weight-bold px-2">R</span></a>'
+                    ].join('');
+
+                    var button = "button" + reply.questionId;
+
+                    document.getElementById(button).innerHTML = repliesButton;
+
+                    var replyDiv = document.createElement('div');
+
+                    replyDiv.innerHTML = replyHtml;
+
+                    var identifictor = "repliesFor" + reply.questionId;
+
+                    document.getElementById(identifictor).appendChild(replyDiv);
+
+                });
+
+                connection.on("DeleteQuestion", (questionId) => {
+                    var identifictor = "question" + questionId;
+                    var questionElement = document.getElementById(identifictor);
+                    document.getElementById('posts').removeChild(questionElement);
+                });
+
+
+                await connection.start();
+
+                var eventCode = document.getElementById("EventCode").value;
+
+                await connection.invoke("JoinToGroup", eventCode);
+
+            })();
+
+        </script>
+    }

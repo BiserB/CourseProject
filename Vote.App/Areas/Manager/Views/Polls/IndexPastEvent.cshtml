@@ -1,0 +1,69 @@
+﻿@model PollPanelModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="row mt-1">
+    <div class=" col-1">
+        <a asp-area="Manager" asp-controller="Activities" asp-action="Create">
+            <i class="fa fa-arrow-left m-2 reseda"></i>
+        </a>
+    </div>
+    <div class="col-5 text-right">
+        <h4>Polls</h4>
+    </div>
+    <div class="col-5">        
+        <div class="text-right">           
+        </div>
+    </div>
+</div>
+<hr class="style3" />
+<div class="container">
+    <h5 class="text-center"><span class="text-muted m-2">code- @Model.EventCode</span> @Model.EventTitle</h5>
+</div>
+
+@{
+    if (!Model.Polls.Any())
+    {
+        <p>No polls created</p>
+        <hr />
+    }
+    else
+    {
+
+        int cnt = 1;
+        foreach (var poll in Model.Polls)
+        {
+            <hr class="style2" />
+            <div class="container">
+                <div class="row">
+                    <div>
+                        <span class="font-weight-bold mr-2">@cnt </span>
+                        <span><a href="/manager/polls/details/@poll.Id">@poll.PollQuestion</a></span>
+                    </div>
+
+                </div>
+                <div class="row">                    
+                        <span class="text-muted font-weight-light">@poll.CreatedOn.ToString("g")</span>
+                        <div class="ml-auto">
+                            <a class="btn btn-sm btn-secondary mx-3" href="path/to/settings" aria-label="Delete">
+                                <i class="fa fa-window-close"></i>
+                            </a>
+                            <a class="btn btn-sm btn-warning mx-1" href="path/to/settings" aria-label="Delete">
+                                <i class="fa fa-archive"></i>
+                            </a>
+                            <a class="btn btn-sm btn-danger mx-3" href="path/to/settings" aria-label="Delete">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </div>
+                        
+                </div>
+            </div>
+            cnt++;
+        }
+        <hr class="style2" />
+    }
+}
+
+
+

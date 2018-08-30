@@ -1,0 +1,10 @@
+﻿<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script>
+    $(".delete").click(function () {
+        var content = $(this).val();
+        document.getElementById("id-to-delete").value = content;
+    });
+    $('#erase').click(function () {
+        $('#delete-form').submit();
+    });
+</script>

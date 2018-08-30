@@ -1,0 +1,20 @@
+﻿@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery afService
+
+<script>
+    document.getElementById("create-btn")
+        .addEventListener("click", function () {
+            $.ajax({
+                url: "https://localhost:5001/manager/activities/create",
+                method: "GET",
+                success: data => console.log(data),
+                error: err => console.log(err)
+            })
+    });
+
+
+</script>
+
+@*// headers: { "RequestVerificationToken": "@afService.GetAndStoreTokens(Context).RequestToken" },*@
+
+@*data: { title: "test", code: "1234" },*@
+

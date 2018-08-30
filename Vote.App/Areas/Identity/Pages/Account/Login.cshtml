@@ -1,0 +1,82 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+}
+
+<div>
+    <div class="col-sm-8 col-md-6 col-lg-4 mx-auto">
+        <section>
+            <div class="h5 row">
+                <div class="col-4 text-left text-nowrap">LOG IN</div>
+                <div class="col-4 text-center">or</div>
+                <div class="col-4 text-right"><a asp-area="Identity" asp-page="/account/register" class="bright">register</a></div>                
+            </div>
+            <hr />
+            <form method="post">
+                <div asp-validation-summary="All" class="text-white"></div>
+                <div class="form-group">
+                    <label asp-for="Input.Username"></label>
+                    <input asp-for="Input.Username" class="form-control" />
+                    <span asp-validation-for="Input.Username" class="text-white"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Password"></label>
+                    <input asp-for="Input.Password" class="form-control" />
+                    <span asp-validation-for="Input.Password" class="text-white"></span>
+                </div>
+                <div class="form-group">
+                    <div class="form-check">
+                        <input asp-for="Input.RememberMe" class="form-check-input" />
+                        <label asp-for="Input.RememberMe">
+                            @Html.DisplayNameFor(m => m.Input.RememberMe)
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-secondary pl-4 pr-4">Log in</button>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </div>
+
+    <div class="col-sm-8 col-md-6 col-lg-4 mx-auto">
+        <section>
+            <hr />
+            @{
+                if ((Model.ExternalLogins?.Count ?? 0) != 0)
+                {
+                    <form asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                        <div>
+                            @{var align = "";}
+                            @foreach (var provider in Model.ExternalLogins)
+                            {
+                                    <button type="submit" class="btn btn-outline-light @align" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+
+                                align = "float-right";
+                            }
+                        </div>
+                    </form>
+                }
+            }
+            <br />
+            <div class="text-center">
+                <p>
+                    <a asp-page="./ForgotPassword" class="bright">Forgot your password?</a>
+                </p>
+            </div>
+            
+        </section>
+    </div>
+
+
+</div>
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

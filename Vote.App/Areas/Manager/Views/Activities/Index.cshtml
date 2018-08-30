@@ -1,0 +1,129 @@
+﻿@model AllEventsModel
+@{
+    ViewData["Title"] = "Create";
+    Layout = "_ManagerEventsLayout";
+}
+
+<div class="bright-bg p-3 height80">
+    <ul class="nav nav-tabs pt-3" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="active-tab" data-toggle="tab" href="#active" role="tab" aria-controls="home" aria-selected="true">Active</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="past-tab" data-toggle="tab" href="#past" role="tab" aria-controls="profile" aria-selected="false">Past</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="active" role="tabpanel" aria-labelledby="active-tab">
+            <div class="list-group">
+                @{
+                    if (!Model.ActiveEvents.Any())
+                    {
+                        <p class="m-5">No active events.</p>
+                    }
+                    foreach (var activeEvent in Model.ActiveEvents)
+                    {
+                        <div class="list-group-item">
+                            <div class="row">
+                                <span class="font-weight-bold mr-2">
+                                    <a asp-area="manager" asp-controller="activities" asp-action="display" asp-route-id="@activeEvent.Id">@activeEvent.Title</a>
+                                </span>
+                                <span class="text-muted ml-auto">
+                                    @activeEvent.Code
+                                </span>
+                            </div>
+                            <div class="row bg-light second-row">
+                                <span class="font-weight-light mr-2">
+                                    @activeEvent.StartDate.ToShortDateString()
+                                </span>
+                                <span class="font-weight-light mr-2">
+                                    @activeEvent.EndDate.ToShortDateString()
+                                </span>
+                                <span>
+                                    @activeEvent.IsPrivate
+                                </span>
+                                <div class="ml-auto">
+                                    <a asp-area="Manager" asp-controller="Polls" asp-action="Index" asp-route-id="@activeEvent.Id" class="btn btn-outline-light">Polls</a>
+
+                                    <a asp-area="manager" asp-controller="settings" asp-action="setupEvent" asp-route-id="@activeEvent.Id" class="fa fa-edit px-2"></a>
+
+                                    <button value="@activeEvent.Id" type="button" data-toggle="modal" data-target="#confirmation" class="delete btn btn-sm ml-3 mr-3"><i class="fa fa-trash"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <p class="mx-5 mt-2"><a href="/manager/activities/create">Create a new event.</a></p>
+                }
+            </div>
+        </div>
+        <div class="tab-pane fade" id="past" role="tabpanel" aria-labelledby="past-tab">
+            <div class="list-group">
+                @{
+                    if (!Model.PastEvents.Any())
+                    {
+                        <p class="m-5">No past events yet.</p>
+                    }
+                    foreach (var pastEvent in Model.PastEvents)
+                    {
+                        <div class="list-group-item">
+                            <div class="row">
+                                <span class="font-weight-bold mr-2">
+                                    <a asp-area="manager" asp-controller="activities" asp-action="display" asp-route-id="@pastEvent.Id">@pastEvent.Title</a>
+                                </span>
+                                <span class="text-muted ml-auto">
+                                    @pastEvent.Code
+                                </span>
+                            </div>
+                            <div class="row bg-light second-row">
+                                <span class="font-weight-light mr-2">
+                                    @pastEvent.StartDate.ToShortDateString()
+                                </span>
+                                <span class="font-weight-light mr-2">
+                                    @pastEvent.EndDate.ToShortDateString()
+                                </span>
+                                <span>
+                                    @pastEvent.IsPrivate
+                                </span>
+                                <div class="ml-auto">
+                                    <a asp-area="Manager" asp-controller="Polls" asp-action="Index" asp-route-id="@pastEvent.Id" class="btn btn-outline-light">Polls</a>
+
+                                    <a asp-area="manager" asp-controller="settings" asp-action="setupEvent" asp-route-id="@pastEvent.Id" class="fa fa-edit px-2"></a>
+
+                                    <button value="@pastEvent.Id" type="button" data-toggle="modal" data-target="#confirmation" class="delete btn btn-sm ml-3 mr-3"><i class="fa fa-trash"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="confirmation" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                Do you really want to delete this event? <br />
+                All the event data will be lost. You can’t undo this action.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark mr-auto" data-dismiss="modal">Cancel</button>
+                <form id="delete-form" asp-area="manager" asp-controller="activities" asp-action="delete">
+                    <input type="hidden" id="id-to-delete" name="id" value="" />
+                    <button id="erase" type="button" class="btn btn-secondary ml-auto">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <partial name="_Confirmation" />
+}
