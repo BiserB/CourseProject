@@ -1,0 +1,36 @@
+﻿@model ICollection<QuestionFullModel>
+
+@{
+    if (Model.Count == 0)
+    {
+        <p class="h5 text-muted text-center m-5">No archived questions</p>
+    }
+    else
+    {
+        foreach (var question in Model)
+        {
+            var identifictor = "question" + question.Id;
+            <div id="@identifictor">
+                <div class="mr-3">
+                    @question.Content
+                </div>
+                <div class="row ml-0">
+                    <span class="content-mutted">@question.PublishedOn</span>
+                    <span class="ml-3">@question.AuthorName</span>
+                    <div class="ml-auto mr-5">
+                        <div class="row">
+                            <form action="/manager/questions/delete" method="post" class="mx-1">
+                                <input value="@question.Id" type="hidden" name="Id" />
+                                <input value="@question.EventId" type="hidden" name="eventId" />
+                                <input value="@question.EventCode" type="hidden" name="eventCode" />
+                                <input type="submit" class="btn btn-sm btn-outline-info" value="Restore" formaction="/manager/questions/restore" />
+                                <input type="submit" class="btn btn-sm btn-outline-info" value="Del" />
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <hr class="style5" />
+            </div>
+        }
+    }
+}

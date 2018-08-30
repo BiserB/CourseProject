@@ -22,14 +22,12 @@ namespace Vote.Common.ViewModels.Events
 
         public DateTime EndDate { get; set; }
 
-        public bool IsPrivate { get; set; }
+        public bool IsClosed { get; set; }
 
         public bool AnonymousAllowed { get; set; }
         
         public List<QuestionFullModel> ActiveQuestions { get; set; }
 
         public List<QuestionFullModel> ArchivedQuestions { get; set; }
-
-        //public List<string> Polls { get; set; }
     }
 }

@@ -27,22 +27,15 @@ namespace Vote.Services.Participant
 
         }
 
-        public Event GetEvent(string code)
+        public EventViewModel GetEvent(string code)
         {
-            var today = DateTime.Today;
-
-            var dbEvent = this.db.Events
-                              .FirstOrDefault(e => e.Code == code &&
-                                                   e.EndDate >= today &&
-                                                   e.IsDeleted == false);
-            
-            return dbEvent;
+            return this.GetDbEventByCode(code);
         }
 
-        public JoinEventViewModel CreateEventModel(Event dbEvent)
+        public JoinEventViewModel CreateEventModel(EventViewModel eventModel)
         {
             var questions = this.db.Questions
-                                   .Where(q => q.EventId == dbEvent.Id &&
+                                   .Where(q => q.EventId == eventModel.Id &&
                                                q.IsArchived == false &&
                                                q.IsDeleted == false)                                   
                                    .Select(q => new QuestionFullModel()
@@ -66,9 +59,9 @@ namespace Vote.Services.Participant
 
             var joinModel = new JoinEventViewModel()
             {
-                EventId = dbEvent.Id,
-                EventCode = dbEvent.Code,
-                EventTitle = dbEvent.Title
+                EventId = eventModel.Id,
+                EventCode = eventModel.Code,
+                EventTitle = eventModel.Title
             };
 
             joinModel.Questions = questions;                                   
@@ -78,6 +71,15 @@ namespace Vote.Services.Participant
 
         public Question CreateQuestion(JoinEventViewModel model)
         {
+            var isPermitted = this.db.Events.Any(e => e.Id == model.EventId &&
+                                                  e.IsClosed == false && 
+                                                  e.IsDeleted == false);
+
+            if (!isPermitted)
+            {
+                return null;
+            }
+
             var question = new Question()
             {
                 EventId = model.EventId,

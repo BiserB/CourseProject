@@ -26,9 +26,7 @@ namespace Vote.Common.BindingModels
         [Display(Name = "End date")]
         [DateAfter("StartDate")]
         public DateTime EndDate { get; set; }
-                
-        public bool IsPrivate { get; set; }
-
+        
         public bool AnonymousAllowed { get; set; }
     }
 }

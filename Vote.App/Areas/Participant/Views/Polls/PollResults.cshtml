@@ -3,14 +3,7 @@
     ViewData["Title"] = "PollResults";
 }
 
-@{ 
-    foreach (var poll in Model)
-    {
-        <p>@poll.PollQuestion </p>
-        <hr class="style3"/>
-        foreach (var answer in poll.PollAnswers)
-        {
-            <p>@answer.Content - @answer.Votes</p>
-        }
-    }
-}
+<div class="col-md-6 swans-bg">
+    @Html.DisplayFor(m => m, "PollResultModelCollection")
+</div>
+

@@ -18,7 +18,7 @@ namespace Vote.Services.Manager.MapperProfile
                 .ForMember(e => e.CreatorId, opt => opt.Ignore())
                 .ForMember(e => e.Creator, opt => opt.Ignore())
                 .ForMember(e => e.IsDeleted, opt => opt.Ignore())
-                .ForMember(e => e.IsPrivate, opt => opt.Ignore())
+                .ForMember(e => e.IsClosed, opt => opt.Ignore())
                 .ForMember(e => e.Polls, opt => opt.Ignore());
 
             this.CreateMap<Event, EventViewModel>();

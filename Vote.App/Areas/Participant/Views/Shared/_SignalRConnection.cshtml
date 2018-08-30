@@ -1,0 +1,96 @@
+﻿<script>
+
+    (async function () {
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/questions")
+            .build();
+
+        connection.on("Callback", (questionContent, publishedOn, authorName, id) => {
+
+            var postHtml = [
+                '<div class="mr-3">' + questionContent + '</div>',
+                '<div class="row mx-0"><span class="content-mutted">' + publishedOn + '</span>',
+                '<span class="ml-3">' + authorName + '</span>',
+                '<span class="ml-auto mr-3">',
+                '<span id="button' + id + '"></span>',
+                '<a data-toggle="collapse" href="#postReply' + id + '" role="button" aria-expanded="false"',
+                'aria-controls="postReply' + id + '" ><i class="fa fa-reply"></i></a></span></div>',
+
+                '<div class="collapse" id="postReply' + id + '"><div class="reply-form">',
+                '<form method="post" class="mr-3 ml-auto" action="/participant/replies/post">',
+                '<div class="form-group">',
+                '<textarea name="replyContent" placeholder="Your reply ..." rows="2" maxlength="256" data-val="true"',
+                ' data-val-length="The ReplyContent must be at least 3 and at max 256 characters long." data-val-length-max="256"',
+                ' data-val-length-min="3" data-val-required="The ReplyContent field is required." id="Reply_ReplyContent"></textarea>',
+                '</div><div class="row mb-1">',
+                '<input name="questionId" value="' + id + '" data-val="true" data-val-required="The QuestionId field is required." id="Reply_QuestionId" type="hidden">',
+                '<input data-val="true" data-val-required="The EventId field is required." id="EventId" name="EventId" value="28" type="hidden">',
+                '<input id="EventCode" name="EventCode" value="simple" type="hidden">',
+                '<label class="sr-only" for="Reply_ReplyAuthor">Display name</label>',
+                '<input name="replyAuthor" class="author-reply border-0 ml-4 pl-2 paradiso swans-bg" placeholder="Anonymous" data-val="true"',
+                ' data-val-length=" Display name must be at least 3 and at max 32 characters long." data-val-length-max="32" data-val-length-min="3"',
+                ' data-val-required="The Display name field is required." id="Reply_ReplyAuthor" value="" type="text">',
+                '<input class="btn btn-sm btn-outline-info ml-auto mr-2" value="Send" type="submit"></div>',
+                '<input name="__RequestVerificationToken" value="" type="hidden"></form>',
+                '</div>',
+                '</div>',
+
+                '<div class="collapse mt-3" id="repliesFor' + id + '"></div>',
+
+                '<hr class="style5" />'
+            ].join('');
+
+            var identificator = "question" + id;
+
+            var div = document.createElement('div');
+
+            div.setAttribute('id', identificator);
+
+            div.innerHTML = postHtml;
+
+            document.getElementById('posts').appendChild(div);
+
+        });
+
+        connection.on("AddReply", (reply) => {
+
+            var replyHtml = [
+                '<div class="row replies">',
+                '<span>' + reply.replyContent + '</span>',
+                '<span class="ml-auto paradiso">' + reply.replyAuthor + '</span></div><hr class="style4" />'
+            ].join('');
+
+            var repliesButton = [
+                '<a class="mx-2" data-toggle="collapse" href="#repliesFor' + reply.questionId +
+                '" role="button" aria-expanded="false" aria-controls="repliesFor' + reply.questionId + '">',
+                '<span class="font-weight-bold px-2">R</span></a>'
+            ].join('');
+
+            var button = "button" + reply.questionId;
+
+            document.getElementById(button).innerHTML = repliesButton;
+
+            var replyDiv = document.createElement('div');
+
+            replyDiv.innerHTML = replyHtml;
+
+            var identifictor = "repliesFor" + reply.questionId;
+
+            document.getElementById(identifictor).appendChild(replyDiv);
+
+        });
+
+        connection.on("DeleteQuestion", (questionId) => {
+            var identifictor = "question" + questionId;
+            var questionElement = document.getElementById(identifictor);
+            document.getElementById('posts').removeChild(questionElement);
+        });
+
+        await connection.start();
+
+        var eventCode = document.getElementById("EventCode").value;
+
+        await connection.invoke("JoinToGroup", eventCode);
+    })();
+
+</script>

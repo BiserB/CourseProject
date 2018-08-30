@@ -3,24 +3,19 @@
     ViewData["Title"] = "SetupEvent";
 }
 
-@*<div class="row">
-    <div class="col-1 ml-5">
-        <a asp-area="Manager" asp-controller="Activities" asp-action="Index">
-            <i class="fa fa-arrow-left m-2 reseda"></i>
-        </a>
-    </div>
-    <div class="col-md-5 col-sm-7">
-        <div class="h5 text-center"><span>Setup event</span></div>
-    </div>
-</div>*@
+@{ 
+    var state = "Active";
 
+    if (Model.EndDate < DateTime.Today)
+    {
+        state = "Past";
+    }
+}
 
 <div class="bright-bg height80">
-    <div class="row ml-lg-5">
-        <a asp-area="manager" asp-controller="activities" asp-action="index">
-            <i class="fa fa-arrow-left m-2 reseda"></i>
-        </a>
-        <div class="ml-auto mr-auto"><span class="mr-5 pr-4">Setup event</span></div>
+    <div class="row ml-lg-5">      
+        
+        <div class="ml-auto mr-auto"><span class="paradiso h4">@state event</span></div>
     </div>
 
     <form asp-area="Manager" asp-controller="Settings" asp-action="SetupEvent" method="post">
@@ -54,36 +49,26 @@
             </div>
 
             <div class="col-md-6">
-                <div class="col-md-10 ml-auto mr-auto">
-                                       
-
+                <div class="col-md-10 ml-auto mr-auto"> 
                     <hr />
                     <div>
                         <label class="custom-checkbox">
-                            IsPrivate
-                            <input type="checkbox">
+                            Event is closed
+                            <input type="checkbox" asp-for="IsClosed">
                             <span class="checkmark"></span>
                         </label>
-                        <span asp-validation-for="IsPrivate" class="text-danger"></span>
+                        <span asp-validation-for="IsClosed" class="text-danger"></span>
                     </div>
                     <hr />
                     <div>
                         <label class="custom-checkbox">
-                            AnonymousAllowed
-                            <input type="checkbox">
+                            anonymous participants allowed
+                            <input type="checkbox" asp-for="AnonymousAllowed">
                             <span class="checkmark"></span>
                         </label>
                         <span asp-validation-for="AnonymousAllowed" class="text-danger"></span>
                     </div>
-                    <hr />
-                    <div>
-                        <label class="custom-checkbox">
-                            IsDeleted
-                            <input type="checkbox">
-                            <span class="checkmark"></span>
-                        </label>
-                        <span asp-validation-for="IsDeleted" class="text-danger"></span>
-                    </div>
+                    <hr />                    
                     <hr />
                 </div>
             </div>
@@ -102,8 +87,6 @@
         </div>
     </form>
 </div>
-
-
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

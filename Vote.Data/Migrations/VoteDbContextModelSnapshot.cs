@@ -146,9 +146,9 @@ namespace Vote.Data.Migrations
 
                     b.Property<DateTime>("EndDate");
 
-                    b.Property<bool>("IsDeleted");
+                    b.Property<bool>("IsClosed");
 
-                    b.Property<bool>("IsPrivate");
+                    b.Property<bool>("IsDeleted");
 
                     b.Property<DateTime>("StartDate");
 

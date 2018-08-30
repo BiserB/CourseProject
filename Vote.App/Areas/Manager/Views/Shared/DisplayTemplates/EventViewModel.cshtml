@@ -1,0 +1,28 @@
+﻿@model EventViewModel
+
+    <div class="list-group-item">
+        <div class="row">
+            <span class="font-weight-bold mr-2">
+                <a asp-area="manager" asp-controller="activities" asp-action="display" asp-route-id="@Model.Id">@Model.Title</a>
+            </span>
+            <span class="text-muted ml-auto mr-md-2">
+                @Model.Code
+            </span>
+        </div>
+        <div class="row bg-light second-row">
+            <span class="font-weight-light mr-2">
+                @Html.DisplayFor(m => m.StartDate)
+            </span>
+            <span class="font-weight-light mr-2">
+                @Html.DisplayFor(m => m.EndDate)
+            </span>            
+            <div class="ml-auto">
+                <a asp-area="Manager" asp-controller="Polls" asp-action="Index" asp-route-id="@Model.Id" class="btn btn-outline-light">Polls</a>
+
+                <a asp-area="manager" asp-controller="settings" asp-action="setupEvent" asp-route-id="@Model.Id" class="fa fa-edit px-2"></a>
+
+                <button value="@Model.Id" type="button" data-toggle="modal" data-target="#confirmation" class="delete btn btn-sm ml-3 mr-3"><i class="fa fa-trash"></i></button>
+            </div>
+        </div>
+    </div>
+

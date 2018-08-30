@@ -24,6 +24,8 @@ namespace Vote.Tests.UnitTests.Services.Participant.Replies
 
             var model = new ReplyBindingModel()
             {
+                EventId = 1,
+                EventCode = "001",
                 QuestionId = 1,
                 ReplyContent = "My reply"
             };
@@ -57,7 +59,7 @@ namespace Vote.Tests.UnitTests.Services.Participant.Replies
             this.db = MockDbContext.GetTestDb();
             this.service = new ParticipantRepliesService(this.db, this.mapper);
 
-            var testQuestion = new Question() { Id = 1, Content = "First test" };
+            var testQuestion = new Question() { Id = 1, Content = "First test", EventId = 1 };
 
             db.Questions.Add(testQuestion);
 

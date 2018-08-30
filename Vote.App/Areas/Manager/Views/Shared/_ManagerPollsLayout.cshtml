@@ -23,46 +23,43 @@
 <body>
     <wrapper class="d-flex flex-column">
         <partial name="_CookieConsentPartial" />
-        <div class="container">
-            <header id="top-nav" class="navbar navbar-expand flex-md-row flex-column">
-                <div class="navbar-brand logo">
-                    <a class="nav-link logo" href="/home/index">
-                        <img src="~/images/VoteLogoFullFinal.svg" height="36" alt="Alternate Text" />
-                    </a>
+        <header id="top-nav" class="navbar navbar-expand flex-md-row flex-column">
+            <div class="navbar-brand logo">
+                <a class="nav-link logo" href="/home/index">
+                    <img src="~/images/VoteLogoFullFinal.svg" height="36" alt="Alternate Text" />
+                </a>
+            </div>
+            <div class="container">
+                <partial name="_BackButton" />
+                <div class="ml-auto mr-auto">
+                    <a asp-area="manager" asp-controller="polls" asp-action="create" asp-route-id="@ViewData["EventId"]" class="btn btn-secondary">Create poll</a>
                 </div>
-                <div class="container">
-                    <div class="ml-auto mr-auto">
-                        <a asp-area="manager" asp-controller="polls" asp-action="create" asp-route-id="@ViewData["EventId"]" class="btn btn-secondary">Create poll</a>
-                    </div>
-                    <partial name="_LoginPartial" />
-                </div>
-            </header>
-        </div>
-            <main class="reseda-bg">
-                <div class="container">
-                    @RenderBody()
-                </div>
-            </main>
+                <partial name="_LoginPartial" />
+            </div>
+        </header>
+        <main class="reseda-bg">
+            <div class="container">
+                @RenderBody()
+            </div>
+        </main>
 
-            <footer>
-                <div class="container">
-                    <nav class="navbar navbar-expand flex-md-row flex-column" id="bottom-nav">
-                        <ul class="navbar-nav mr-md-auto">
-                            <li class="nav-item">
-                                <a class="nav-link bright" href="/about">About</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-nowrap bright" href="#topNav">Back to top</a>
-                            </li>
-                        </ul>
-                        <div class="ml-md-auto">
-                            <span>Copyright &copy; 2018 by <a class="bright" href="/home/index">Vote.Inc</a> |</span>
-                            <span>Coded by <a class="bright" href="#">B.B.</a></span>
-                        </div>
-                    </nav>
+        <footer>
+            <nav class="navbar navbar-expand flex-md-row flex-column" id="bottom-nav">
+                <ul class="navbar-nav mr-md-auto">
+                    <li class="nav-item">
+                        <a class="nav-link bright" href="/about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-nowrap bright" href="#top-nav">Back to top</a>
+                    </li>
+                </ul>
+                <div class="ml-md-auto">
+                    <span>Copyright &copy; 2018 by <a class="bright" href="/home/index">Vote.Inc</a> |</span>
+                    <span>Coded by <a class="bright" href="https://github.com/BiserB/CourseProject">B.B.</a></span>
                 </div>
-            </footer>
-</wrapper>
+            </nav>
+        </footer>
+    </wrapper>
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>

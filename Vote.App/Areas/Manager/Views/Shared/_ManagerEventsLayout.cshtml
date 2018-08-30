@@ -22,8 +22,7 @@
 </head>
 <body>
     <wrapper class="d-flex flex-column">
-        <partial name="_CookieConsentPartial" />
-        @*<div class="container">*@
+        <partial name="_CookieConsentPartial" />       
             <header id="top-nav" class="navbar navbar-expand flex-md-row flex-column">
                 <div class="navbar-brand logo">
                     <a class="nav-link logo" href="/home/index">
@@ -37,7 +36,7 @@
                     <partial name="_LoginPartial" />
                 </div>
             </header>
-        @*</div>*@
+       
             <main class="reseda-bg">
                 <div class="container">
                     @RenderBody()
@@ -51,12 +50,12 @@
                                 <a class="nav-link bright" href="/about">About</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-nowrap bright" href="#topNav">Back to top</a>
+                                <a class="nav-link text-nowrap bright" href="#top-nav">Back to top</a>
                             </li>
                         </ul>
                         <div class="ml-md-auto">
                             <span>Copyright &copy; 2018 by <a class="bright" href="/home/index">Vote.Inc</a> |</span>
-                            <span>Coded by <a class="bright" href="#">B.B.</a></span>
+                            <span>Coded by <a class="bright" href="https://github.com/BiserB/CourseProject">B.B.</a></span>
                         </div>
                     </nav>                
             </footer>

@@ -23,10 +23,11 @@ namespace Vote.Services.Participant
 
         public bool SaveReply(ReplyBindingModel model)
         {
-            var question = this.db.Questions
-                .FirstOrDefault(q => q.Id == model.QuestionId && q.EventId == model.EventId );
+            var isPermitted = this.db.Questions
+                                     .Any(q => q.Id == model.QuestionId && q.EventId == model.EventId &&
+                                               q.Event.IsClosed == false && q.Event.IsDeleted == false);
 
-            if (question == null)
+            if (!isPermitted)
             {
                 return false;
             }

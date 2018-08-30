@@ -10,9 +10,9 @@ namespace Vote.Services.Participant.Interfaces
 {
     public interface IParticipantEventsService
     {
-        Event GetEvent(string code);
+        EventViewModel GetEvent(string code);
 
-        JoinEventViewModel CreateEventModel(Event dbEvent);
+        JoinEventViewModel CreateEventModel(EventViewModel dbEvent);
 
         Question CreateQuestion(JoinEventViewModel model);
 

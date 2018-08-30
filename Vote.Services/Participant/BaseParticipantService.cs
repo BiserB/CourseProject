@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Vote.Common.ViewModels.Events;
 using Vote.Data;
 using Vote.Entities;
 
@@ -19,15 +20,18 @@ namespace Vote.Services.Participant
             this.mapper = mapper;
         }
 
-        protected Event GetDbEventByCode(string code)
+        protected EventViewModel GetDbEventByCode(string code)
         {
             var today = DateTime.Today;
 
             var dbEvent = this.db.Events.FirstOrDefault(e => e.Code == code &&
                                                              e.EndDate >= today &&
-                                                             e.IsDeleted == false);
+                                                             e.IsDeleted == false &&
+                                                             e.IsClosed == false);
 
-            return dbEvent;
+            var model = this.mapper.Map<EventViewModel>(dbEvent);
+
+            return model;
         }
     }
 }

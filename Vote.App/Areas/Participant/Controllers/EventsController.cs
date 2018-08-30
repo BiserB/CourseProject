@@ -58,6 +58,11 @@ namespace Vote.App.Areas.Participant.Controllers
 
             var q = this.service.CreateQuestion(model);
 
+            if (q == null)
+            {
+                return RedirectToAction("Join", new { code = model.EventCode });
+            }
+
             this.service.SaveQuestion(q);
 
             await this.hubContext.Clients.Group(model.EventCode)

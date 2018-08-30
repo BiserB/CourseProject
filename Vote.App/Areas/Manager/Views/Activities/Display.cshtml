@@ -24,62 +24,12 @@
                     }
                     else
                     {
-                        foreach (var question in Model.ActiveQuestions)
-                        {
-                            var identifictor = "question" + question.Id;
-                        <div id="@identifictor">
-                            <div class="mr-3">
-                                <span>
-                                    @question.Content
-                                </span>
-                            </div>
-                            <div class="row ml-0">
-                                <span class="content-mutted">@question.PublishedOn</span>
-                                <span class="ml-3">@question.AuthorName</span>
-
-                                <div class="row ml-auto mr-4">
-                                    @{
-                                        if (question.Replies.Any())
-                                        {
-                                            <a class="mx-2" data-toggle="collapse" href="#repliesFor@(question.Id)" role="button" aria-expanded="false" aria-controls="repliesFor@(question.Id)">
-                                                <span class="font-weight-bold px-2">R</span>
-                                            </a>
-                                        }
-                                    }
-                                    <form action="/manager/questions/delete" method="post" class="mx-1">
-                                        <input value="@question.Id" type="hidden" name="Id" />
-                                        <input value="@Model.Id" type="hidden" name="eventId" />
-                                        <input value="@Model.EventCode" type="hidden" name="eventCode" />
-                                        <input type="submit" class="btn btn-sm btn-outline-info" value="Arc" formaction="/manager/questions/archive" />
-                                        <input type="submit" class="btn btn-sm btn-outline-info" value="Del" />
-                                    </form>
-                                </div>
-                            </div>
-
-                            <div class="collapse mt-3" id="repliesFor@(question.Id)">
-                                @{
-
-                                    foreach (var reply in question.Replies)
-                                    {
-                                        <div class="row replies">
-                                            <span>@reply.Content</span>
-                                            <span class="ml-auto paradiso">@reply.AuthorName</span>
-                                        </div>
-
-                                        <hr class="style4" />
-                                    }
-                                }
-                            </div>
-
-                            <hr class="style5" />
-                        </div>
-                        }
+                        @Html.DisplayFor(m => m.ActiveQuestions, "QuestionFullModelCollection")                       
                     }
                 }
             </div>
         </div>
     </div>
-
 
     <div class="col-md-6 swans-bg border-left">
         <div class="row paradiso-bg swans">
@@ -87,40 +37,7 @@
         </div>
         <div class="row">
             <div id="posts" class="questions">
-                @{
-                    if (!Model.ArchivedQuestions.Any())
-                    {
-                        <p class="h5 text-muted text-center m-5">No archived questions</p>
-                    }
-                    else
-                    {
-                        foreach (var question in Model.ArchivedQuestions)
-                        {
-                            var identifictor = "question" + question.Id;
-                            <div id="@identifictor">
-                                <div class="mr-3">
-                                    @question.Content
-                                </div>
-                                <div class="row ml-0">
-                                    <span class="content-mutted">@question.PublishedOn</span>
-                                    <span class="ml-3">@question.AuthorName</span>
-                                    <div class="ml-auto mr-5">
-                                        <div class="row">
-                                            <form action="/manager/questions/delete" method="post" class="mx-1">
-                                                <input value="@question.Id" type="hidden" name="Id" />
-                                                <input value="@Model.Id" type="hidden" name="eventId" />
-                                                <input value="@Model.EventCode" type="hidden" name="eventCode" />
-                                                <input type="submit" class="btn btn-sm btn-outline-info" value="Restore" formaction="/manager/questions/restore" />
-                                                <input type="submit" class="btn btn-sm btn-outline-info" value="Del" />
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr class="style5" />
-                            </div>
-                        }
-                    }
-                }
+                @Html.DisplayFor(m => m.ArchivedQuestions, "ArchivedQuestions")
             </div>
         </div>
     </div>
@@ -145,9 +62,7 @@
                 if (message !== null) {
                     message.parentNode.removeChild(message);
                 }
-
-                //TODO -- add reply
-
+                
                 var postHtml = [
                     '<div class="mr-3">' + questionContent + '</div>',
                     '<div class="row ml-0"><span class="content-mutted">' + publishedOn + '</span>',

@@ -16,6 +16,10 @@ namespace Vote.Common.ViewModels.Events
 
         public string PublishedOn { get; set; }
 
+        public int EventId { get; set; }
+
+        public string EventCode { get; set; }
+
         public bool IsArchived { get; set; }
 
         public int Upvotes { get; set; }

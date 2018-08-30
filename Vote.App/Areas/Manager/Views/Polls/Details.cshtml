@@ -4,55 +4,60 @@
 }
 
 <h2 class="h4">Poll for <a href="/manager/settings/setupevent/@Model.EventId"> @Model.EventTitle </a></h2>
-<hr />
-<div class="row">
-    <div class="col-6">
-        <h5> @Model.PollQuestion</h5>
-        <h6 class="text-muted"> Created: @Model.CreatedOn</h6>
-        @{
-            foreach (var answer in Model.PollAnswers)
-            {
-                <hr />
-                <p>@answer</p>
-            }
-        }
-        <hr />
-    </div>
-    <div class="col-6">
-        <form asp-area="Manager" asp-controller="Polls" asp-action="SaveChanges" method="post">
+<hr class="style2"/>
+<form asp-area="Manager" asp-controller="Polls" asp-action="SaveChanges" method="post">
+    <div class="row">
+
+        <div class="col-md-6">
+            <h5> @Model.PollQuestion</h5>
+            <div class="ml-2">
+                @{
+                    foreach (var answer in Model.PollAnswers)
+                    {
+                        <hr class="style7" />
+                        <p>@answer</p>
+                    }
+                }
+            </div>
+            <hr class="style2" />
+            <p class="text-muted swans-bg"> Created: @Model.CreatedOn</p>
+            <hr class="style2" />
+        </div>
+
+        <div class="col-md-6">
+
             <input asp-for="Id" type="hidden" />
             <div asp-validation-summary="All" class="text-warning"></div>
-            <div class="offset-md-2 col-md-4 col-sm-12">
-
-                <div class="form-group">
-                    <label asp-for="IsActive"></label>
-                    <input asp-for="IsActive" class="form-control" />
-                    <span asp-validation-for="IsActive" class="text-warning"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="IsClosed"></label>
-                    <input asp-for="IsClosed" class="datepicker form-control">
-                    <span asp-validation-for="IsClosed" class="text-warning"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="IsDeleted"></label>
-                    <input asp-for="IsDeleted" class="datepicker form-control">
-                    <span asp-validation-for="IsDeleted" class="text-warning"></span>
-                </div>
-
+            <div class="offset-md-2">
+                <p>
+                    <label class="custom-checkbox">
+                        Poll is closed
+                        <input type="checkbox" asp-for="IsClosed">
+                        <span class="checkmark"></span>
+                    </label>
+                </p>
+                <p>
+                    <label class="custom-checkbox">
+                        Poll is active
+                        <input type="checkbox" asp-for="IsActive">
+                        <span class="checkmark"></span>
+                    </label>
+                </p>
             </div>
-            <div class="row mt-md-3">
-                <div class="col-6 text-right">
-                    <a asp-area="Manager" asp-controller="Activities" asp-action="Create" class="btn btn-outline-dark">CANCEL</a>
-                </div>
-                <div class="col-6 text-left">
-                    <button type="submit" class="btn btn-secondary">SAVE</button>
-                </div>
-            </div>
-        </form>
-        <hr />
+
+            <hr />
+        </div>
     </div>
-</div>
+    <div class="row mt-md-3">
+        <div class="col-6 text-right">
+            <a asp-area="Manager" asp-controller="Activities" asp-action="Create" class="btn btn-outline-dark">CANCEL</a>
+        </div>
+        <div class="col-6 text-left">
+            <button type="submit" class="btn btn-secondary">SAVE</button>
+        </div>
+    </div>
+</form>
+
 
 
       

@@ -27,7 +27,7 @@ namespace Vote.Common.BindingModels
         [DateAfter("StartDate")]
         public DateTime EndDate { get; set; }
 
-        public bool IsPrivate { get; set; }
+        public bool IsClosed { get; set; }
 
         public bool AnonymousAllowed { get; set; }
 

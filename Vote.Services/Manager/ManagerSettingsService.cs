@@ -56,8 +56,8 @@ namespace Vote.Services.Manager
             dbEvent.Title = model.Title;
             dbEvent.StartDate = model.StartDate;
             dbEvent.EndDate = model.EndDate;
-            dbEvent.IsPrivate = model.IsPrivate;
-            dbEvent.IsDeleted = model.IsDeleted;
+            dbEvent.IsClosed = model.IsClosed;
+            dbEvent.AnonymousAllowed = model.AnonymousAllowed;
             
             db.SaveChanges();
 

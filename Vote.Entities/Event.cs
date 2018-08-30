@@ -11,7 +11,7 @@ namespace Vote.Entities
         {
             this.Questions = new List<Question>();
             this.Polls = new List<Poll>();
-            this.IsPrivate = false;
+            this.IsClosed = false;
             this.AnonymousAllowed = true;
             this.IsDeleted = false;
         }
@@ -36,7 +36,7 @@ namespace Vote.Entities
 
         public DateTime EndDate { get; set; }
 
-        public bool IsPrivate { get; set; }        
+        public bool IsClosed { get; set; }        
 
         public bool AnonymousAllowed { get; set; }
 

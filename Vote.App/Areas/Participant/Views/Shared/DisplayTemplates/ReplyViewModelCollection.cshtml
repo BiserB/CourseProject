@@ -1,0 +1,12 @@
+﻿@model ICollection<ReplyViewModel>
+
+@{
+    foreach (var reply in Model)
+    {
+        <div class="row replies">
+            <span>@reply.Content</span>
+            <span class="ml-auto paradiso">@reply.AuthorName</span>
+        </div>
+        <hr class="style4" />
+    }
+}

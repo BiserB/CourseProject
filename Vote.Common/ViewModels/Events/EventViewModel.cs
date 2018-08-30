@@ -19,6 +19,6 @@ namespace Vote.Common.ViewModels.Events
 
         public DateTime EndDate { get; set; }
 
-        public bool IsPrivate { get; set; }
+        public bool IsClosed { get; set; }
     }
 }

@@ -1,0 +1,14 @@
+﻿@model ICollection<PollResultModel>
+
+@{
+    
+    foreach (var poll in Model)
+    {
+        <p class="text-center swans-bg paradiso">@poll.PollQuestion </p>
+        <hr class="style3" />
+        foreach (var answer in poll.PollAnswers)
+        {
+            <p>@answer.Content - @answer.Votes</p>
+        }
+    }
+}
