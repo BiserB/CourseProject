@@ -1,6 +1,6 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using System;
 
 namespace Vote.Data.Migrations
 {
@@ -26,21 +26,21 @@ namespace Vote.Data.Migrations
                 name: "AspNetUsers",
                 columns: table => new
                 {
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    EmailConfirmed = table.Column<bool>(nullable: false),
+                    LockoutEnabled = table.Column<bool>(nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(nullable: false),
                     Id = table.Column<string>(nullable: false),
                     UserName = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
                     Email = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(nullable: false),
                     PasswordHash = table.Column<string>(nullable: true),
                     SecurityStamp = table.Column<string>(nullable: true),
                     ConcurrencyStamp = table.Column<string>(nullable: true),
                     PhoneNumber = table.Column<string>(nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
-                    LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false),
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     LoggedOn = table.Column<DateTime>(nullable: false),
                     Organization = table.Column<string>(nullable: true),
@@ -184,7 +184,7 @@ namespace Vote.Data.Migrations
                     CreatorId = table.Column<string>(nullable: false),
                     StartDate = table.Column<DateTime>(nullable: false),
                     EndDate = table.Column<DateTime>(nullable: false),
-                    IsPrivate = table.Column<bool>(nullable: false),
+                    IsClosed = table.Column<bool>(nullable: false),
                     AnonymousAllowed = table.Column<bool>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
                     UserId = table.Column<string>(nullable: true)
@@ -244,7 +244,7 @@ namespace Vote.Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     AuthorId = table.Column<string>(nullable: true),
-                    AuthorName = table.Column<string>(nullable: true),
+                    AuthorName = table.Column<string>(nullable: false),
                     EventId = table.Column<int>(nullable: false),
                     Content = table.Column<string>(maxLength: 256, nullable: true),
                     PublishedOn = table.Column<DateTime>(nullable: false),
@@ -278,8 +278,7 @@ namespace Vote.Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Content = table.Column<string>(maxLength: 256, nullable: false),
                     Votes = table.Column<int>(nullable: false),
-                    PollId = table.Column<int>(nullable: false),
-                    PublishedOn = table.Column<DateTime>(nullable: false)
+                    PollId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -299,22 +298,20 @@ namespace Vote.Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     QuestionId = table.Column<int>(nullable: false),
-                    AuthorId = table.Column<int>(nullable: false),
-                    AuthorId1 = table.Column<string>(nullable: false),
+                    AuthorName = table.Column<string>(nullable: false),
+                    AuthorId = table.Column<string>(nullable: true),
                     Content = table.Column<string>(maxLength: 256, nullable: false),
-                    PublishedOn = table.Column<DateTime>(nullable: false),
-                    Upvotes = table.Column<int>(nullable: false),
-                    Downvotes = table.Column<int>(nullable: false)
+                    PublishedOn = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Replies", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Replies_AspNetUsers_AuthorId1",
-                        column: x => x.AuthorId1,
+                        name: "FK_Replies_AspNetUsers_AuthorId",
+                        column: x => x.AuthorId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Replies_Questions_QuestionId",
                         column: x => x.QuestionId,
@@ -404,9 +401,9 @@ namespace Vote.Data.Migrations
                 column: "EventId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Replies_AuthorId1",
+                name: "IX_Replies_AuthorId",
                 table: "Replies",
-                column: "AuthorId1");
+                column: "AuthorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Replies_QuestionId",

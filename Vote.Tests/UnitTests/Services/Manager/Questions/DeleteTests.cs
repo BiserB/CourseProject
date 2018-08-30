@@ -1,14 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Vote.Data;
 using Vote.Entities;
 using Vote.Services.Manager;
 
 namespace Vote.Tests.UnitTests.Services.Manager.Questions
-{   
+{
     [TestClass]
     public class DeleteTests
     {
@@ -40,7 +37,7 @@ namespace Vote.Tests.UnitTests.Services.Manager.Questions
             var id = 1001;
             var eventId = 1;
             var userId = "ABC";
-            
+
             var isDeleted = this.service.Delete(id, eventId, userId);
 
             Assert.AreEqual(false, isDeleted);

@@ -1,17 +1,10 @@
-﻿
-using AutoMapper;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Vote.Common;
 using Vote.Common.BindingModels;
 using Vote.Common.ViewModels.Polls;
 using Vote.Data;
-using Vote.Entities;
 
 using Vote.Services.Participant.Interfaces;
 
@@ -22,7 +15,6 @@ namespace Vote.Services.Participant
         public ParticipantPollsService(VoteDbContext db, IMapper mapper)
             : base(db, mapper)
         {
-
         }
 
         public List<PollResultModel> GetPollResults(int id)

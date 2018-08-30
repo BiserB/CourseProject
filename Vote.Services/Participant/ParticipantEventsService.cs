@@ -1,30 +1,21 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.SignalR;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Vote.Common;
 using Vote.Common.BindingModels;
 using Vote.Common.ViewModels.Events;
 using Vote.Data;
 using Vote.Entities;
 using Vote.Services.Participant.Interfaces;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Vote.Services.Participant
 {
-    public class ParticipantEventsService: BaseParticipantService, IParticipantEventsService
+    public class ParticipantEventsService : BaseParticipantService, IParticipantEventsService
     {
         public ParticipantEventsService(VoteDbContext db,
                                         IMapper mapper)
-                                        : base(db,  mapper)
+                                        : base(db, mapper)
         {
-
         }
 
         public EventViewModel GetEvent(string code)
@@ -37,7 +28,7 @@ namespace Vote.Services.Participant
             var questions = this.db.Questions
                                    .Where(q => q.EventId == eventModel.Id &&
                                                q.IsArchived == false &&
-                                               q.IsDeleted == false)                                   
+                                               q.IsDeleted == false)
                                    .Select(q => new QuestionFullModel()
                                    {
                                        Id = q.Id,
@@ -50,21 +41,18 @@ namespace Vote.Services.Participant
                                                   .Select(r => new ReplyViewModel()
                                                   {
                                                       AuthorName = r.AuthorName,
-                                                      Content = r.Content,
-                                                      Upvotes = r.Upvotes,
-                                                      Downvotes = r.Downvotes
+                                                      Content = r.Content
                                                   }).ToList()
                                    })
-                                   .ToList();            
+                                   .ToList();
 
             var joinModel = new JoinEventViewModel()
             {
                 EventId = eventModel.Id,
                 EventCode = eventModel.Code,
-                EventTitle = eventModel.Title
+                EventTitle = eventModel.Title,
+                Questions = questions
             };
-
-            joinModel.Questions = questions;                                   
 
             return joinModel;
         }
@@ -72,7 +60,7 @@ namespace Vote.Services.Participant
         public Question CreateQuestion(JoinEventViewModel model)
         {
             var isPermitted = this.db.Events.Any(e => e.Id == model.EventId &&
-                                                  e.IsClosed == false && 
+                                                  e.IsClosed == false &&
                                                   e.IsDeleted == false);
 
             if (!isPermitted)
@@ -87,9 +75,7 @@ namespace Vote.Services.Participant
                 PublishedOn = DateTime.Now
             };
 
-            bool isNotAnonymous = model.Question.ParticipantName != VoteConstants.Anonymous;
-
-            if (isNotAnonymous)
+            if (model.Question.ParticipantName != null)
             {
                 question.AuthorName = model.Question.ParticipantName;
             }
@@ -97,7 +83,7 @@ namespace Vote.Services.Participant
             {
                 question.AuthorName = VoteConstants.Anonymous;
             }
-            
+
             return question;
         }
 
@@ -107,7 +93,7 @@ namespace Vote.Services.Participant
         }
 
         public void SaveQuestion(Question question)
-        {      
+        {
             this.db.Questions.Add(question);
 
             this.db.SaveChanges();
@@ -123,6 +109,6 @@ namespace Vote.Services.Participant
             };
 
             return questionModel;
-        } 
+        }
     }
 }

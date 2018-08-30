@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Vote.Common.ViewModels.Events
 {
@@ -17,7 +16,7 @@ namespace Vote.Common.ViewModels.Events
         public string EventCode { get; set; }
 
         public string Title { get; set; }
-        
+
         public DateTime StartDate { get; set; }
 
         public DateTime EndDate { get; set; }
@@ -25,7 +24,7 @@ namespace Vote.Common.ViewModels.Events
         public bool IsClosed { get; set; }
 
         public bool AnonymousAllowed { get; set; }
-        
+
         public List<QuestionFullModel> ActiveQuestions { get; set; }
 
         public List<QuestionFullModel> ArchivedQuestions { get; set; }

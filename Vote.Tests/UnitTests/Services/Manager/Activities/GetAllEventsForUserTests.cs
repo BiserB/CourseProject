@@ -1,8 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Vote.Data;
 using Vote.Services.Manager;
 
@@ -17,7 +14,7 @@ namespace Vote.Tests.UnitTests.Services.Manager.Activities
 
         [TestMethod]
         public void WithThreeActiveEvents_ReturnsAllThree()
-        {   
+        {
             var dbEvents = service.GetAllEventsForUser("ABC");
 
             var activeEventsCount = dbEvents.ActiveEvents.Count;
@@ -27,7 +24,7 @@ namespace Vote.Tests.UnitTests.Services.Manager.Activities
 
         [TestMethod]
         public void WithNullPastEvents_ReturnsZeroPast()
-        {            
+        {
             var dbEvents = service.GetAllEventsForUser("ABC");
 
             var pastEventsCount = dbEvents.PastEvents.Count;
@@ -55,6 +52,5 @@ namespace Vote.Tests.UnitTests.Services.Manager.Activities
             this.db = MockDbContext.GetTestDb();
             this.service = new ManagerActivitiesService(this.db, this.mapper);
         }
-
     }
 }

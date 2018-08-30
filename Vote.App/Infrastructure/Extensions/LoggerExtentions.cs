@@ -1,10 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using Vote.Common;
 
 namespace Vote.App.Infrastructure.Extensions
@@ -37,6 +34,5 @@ namespace Vote.App.Infrastructure.Extensions
                 return false;
             }
         }
-
     }
 }

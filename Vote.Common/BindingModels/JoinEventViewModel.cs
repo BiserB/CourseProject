@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Vote.Common.ViewModels.Events;
 
 namespace Vote.Common.BindingModels
@@ -12,10 +7,9 @@ namespace Vote.Common.BindingModels
     {
         public JoinEventViewModel()
         {
-            
         }
 
-        public int EventId { get; set; }        
+        public int EventId { get; set; }
 
         public string EventCode { get; set; }
 

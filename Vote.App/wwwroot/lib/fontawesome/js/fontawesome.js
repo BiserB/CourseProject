@@ -84,8 +84,6 @@ var createClass = function () {
   };
 }();
 
-
-
 var _extends = Object.assign || function (target) {
   for (var i = 1; i < arguments.length; i++) {
     var source = arguments[i];
@@ -99,8 +97,6 @@ var _extends = Object.assign || function (target) {
 
   return target;
 };
-
-
 
 var slicedToArray = function () {
   function sliceIterator(arr, i) {
@@ -413,7 +409,6 @@ var makeIconMasking = function (_ref) {
   var maskWidth = mask.width,
       maskPath = mask.icon;
 
-
   var trans = transformForSvg({ transform: transform, containerWidth: maskWidth, iconWidth: mainWidth });
 
   var maskRect = {
@@ -618,7 +613,6 @@ function makeLayersTextAbstract(params) {
       _params$watchable2 = params.watchable,
       watchable = _params$watchable2 === undefined ? false : _params$watchable2;
 
-
   var attributes = _extends({}, extra.attributes, title ? { 'title': title } : {}, {
     'class': extra.classes.join(' ')
   });
@@ -659,7 +653,6 @@ function makeLayersCounterAbstract(params) {
   var content = params.content,
       title = params.title,
       extra = params.extra;
-
 
   var attributes = _extends({}, extra.attributes, title ? { 'title': title } : {}, {
     'class': extra.classes.join(' ')
@@ -718,8 +711,6 @@ var bindInternal4 = function bindInternal4 (func, thisContext) {
 
 'use strict';
 
-
-
 /**
  * # Reduce
  *
@@ -756,7 +747,6 @@ var reduce = function fastReduceObject (subject, fn, initialValue, thisContext) 
 
 var styles$2 = namespace.styles;
 var shims = namespace.shims;
-
 
 var _byUnicode = {};
 var _byLigature = {};
@@ -821,7 +811,6 @@ function byOldName(name) {
 
 var styles$1 = namespace.styles;
 
-
 var emptyCanonicalIcon = function emptyCanonicalIcon() {
   return { prefix: null, iconName: null, rest: [] };
 };
@@ -861,7 +850,6 @@ function toHtml(abstractNodes) {
       attributes = _abstractNodes$attrib === undefined ? {} : _abstractNodes$attrib,
       _abstractNodes$childr = abstractNodes.children,
       children = _abstractNodes$childr === undefined ? [] : _abstractNodes$childr;
-
 
   if (typeof abstractNodes === 'string') {
     return htmlEscape(abstractNodes);
@@ -986,7 +974,6 @@ function observe(options) {
       pseudoElementsCallback = options.pseudoElementsCallback,
       _options$observeMutat = options.observeMutationsRoot,
       observeMutationsRoot = _options$observeMutat === undefined ? DOCUMENT.body : _options$observeMutat;
-
 
   mo = new MUTATION_OBSERVER(function (objects) {
     if (disabled) return;
@@ -1333,7 +1320,6 @@ function generateSvgReplacementMutation(node, nodeMeta) {
       mask = nodeMeta.mask,
       extra = nodeMeta.extra;
 
-
   return [node, makeInlineSvgAbstract({
     icons: {
       main: findIcon(iconName, prefix),
@@ -1354,7 +1340,6 @@ function generateLayersText(node, nodeMeta) {
   var title = nodeMeta.title,
       transform = nodeMeta.transform,
       extra = nodeMeta.extra;
-
 
   var width = null;
   var height = null;
@@ -1621,7 +1606,6 @@ var Library = function () {
             iconName = _normalized$key.iconName,
             icon = _normalized$key.icon;
 
-
         if (!additions[prefix]) additions[prefix] = {};
 
         additions[prefix][iconName] = icon;
@@ -1684,7 +1668,6 @@ function findIconDefinition(params) {
       prefix = _params$prefix === undefined ? 'fa' : _params$prefix,
       iconName = params.iconName;
 
-
   if (!iconName) return;
 
   return iconFromMapping(library.definitions, prefix, iconName) || iconFromMapping(namespace.styles, prefix, iconName);
@@ -1697,7 +1680,6 @@ function resolveIcons(next) {
     var iconDefinition = (maybeIconDefinition || {}).icon ? maybeIconDefinition : findIconDefinition(maybeIconDefinition || {});
 
     var mask = params.mask;
-
 
     if (mask) {
       mask = (mask || {}).icon ? mask : findIconDefinition(mask || {});
@@ -1730,7 +1712,6 @@ var dom = {
           _params$callback = params.callback,
           callback = _params$callback === undefined ? function () {} : _params$callback;
 
-
       if (config.searchPseudoElements) {
         searchPseudoElements(node);
       }
@@ -1752,7 +1733,6 @@ var dom = {
     var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     var autoReplaceSvgRoot = params.autoReplaceSvgRoot,
         observeMutationsRoot = params.observeMutationsRoot;
-
 
     if (config.autoReplaceSvg === false) {
       config.autoReplaceSvg = true;
@@ -1798,13 +1778,11 @@ var icon = resolveIcons(function (iconDefinition) {
       _params$styles = params.styles,
       styles = _params$styles === undefined ? {} : _params$styles;
 
-
   if (!iconDefinition) return;
 
   var prefix = iconDefinition.prefix,
       iconName = iconDefinition.iconName,
       icon = iconDefinition.icon;
-
 
   return apiObject(_extends({ type: 'icon' }, iconDefinition), function () {
     ensureCss();
@@ -1849,7 +1827,6 @@ var text = function text(content) {
       _params$styles2 = params.styles,
       styles = _params$styles2 === undefined ? {} : _params$styles2;
 
-
   return apiObject({ type: 'text', content: content }, function () {
     ensureCss();
 
@@ -1876,7 +1853,6 @@ var counter = function counter(content) {
       attributes = _params$attributes3 === undefined ? {} : _params$attributes3,
       _params$styles3 = params.styles,
       styles = _params$styles3 === undefined ? {} : _params$styles3;
-
 
   return apiObject({ type: 'counter', content: content }, function () {
     ensureCss();
@@ -1932,7 +1908,6 @@ var autoReplace = function autoReplace() {
   var _params$autoReplaceSv = params.autoReplaceSvgRoot,
       autoReplaceSvgRoot = _params$autoReplaceSv === undefined ? DOCUMENT : _params$autoReplaceSv;
 
-
   if (Object.keys(namespace.styles).length > 0 && IS_DOM && config.autoReplaceSvg) api.dom.i2svg({ node: autoReplaceSvgRoot });
 };
 
@@ -1954,7 +1929,6 @@ function bootstrap() {
   }
 
   namespace.hooks = _extends({}, namespace.hooks, {
-
     addPack: function addPack(prefix, icons) {
       namespace.styles[prefix] = _extends({}, namespace.styles[prefix] || {}, icons);
 
@@ -1974,5 +1948,4 @@ function bootstrap() {
 }
 
 bunker(bootstrap);
-
 }());

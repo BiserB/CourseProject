@@ -1,0 +1,74 @@
+﻿[
+  {
+    "Code": "TM2017",
+    "Title": "Module: Tech Module/Jan 2017",
+    "StartDate": "2017-01-03",
+    "EndDate": "2017-04-03"
+  },
+  {
+    "Code": "JS-Core",
+    "Title": "Module: JavaScript - Jan 2017",
+    "StartDate": "2017-01-03",
+    "EndDate": "2017-04-03"
+  },
+  {
+    "Code": "Entry Module",
+    "Title": "Module: Entry Module - Jan 2018",
+    "StartDate": "2018-01-05",
+    "EndDate": "2018-04-05"
+  },
+  {
+    "Code": "Tech Module",
+    "Title": "Module: Tech Module September 2018",
+    "StartDate": "2018-09-05",
+    "EndDate": "2018-12-05"
+  },
+  {
+    "Code": "WP Basics for Teachers",
+    "Title": "WordPress Basics September 2018",
+    "StartDate": "2018-09-10",
+    "EndDate": "2018-12-08"
+  },
+  {
+    "Code": "Java-basics",
+    "Title": "Programming Basics with Java - октомври 2018",
+    "StartDate": "2018-10-10",
+    "EndDate": "2018-12-20"
+  },
+  {
+    "Code": "CSharp-basics",
+    "Title": "Programming Basics with C# - september 2018",
+    "StartDate": "2018-09-10",
+    "EndDate": "2018-12-20"
+  },
+  {
+    "Code": "Networks",
+    "Title": "Computer Networking Fundamentals - септември 2018",
+    "StartDate": "2018-09-01",
+    "EndDate": "2018-12-02"
+  },
+  {
+    "Code": "1111",
+    "Title": "Computer Networking Fundamentals - септември 2018",
+    "StartDate": "2018-08-30",
+    "EndDate": "2018-09-02"
+  },
+  {
+    "Code": "2222",
+    "Title": "CISCO CCNA",
+    "StartDate": "2018-08-30",
+    "EndDate": "2018-09-05"
+  },
+  {
+    "Code": "3333",
+    "Title": "Intro to tests",
+    "StartDate": "2018-08-31",
+    "EndDate": "2018-09-09"
+  },
+  {
+    "Code": "0000",
+    "Title": "Scholarship programs",
+    "StartDate": "2018-08-31",
+    "EndDate": "2018-11-09"
+  }
+]

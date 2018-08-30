@@ -3,7 +3,6 @@
     ViewData["Title"] = "Create";
 }
 
-
 <div class="row">
     <div class="col-md-6 ask-section ml-auto mr-auto">
         <div class="container">
@@ -12,7 +11,6 @@
             <h2 class="h5">Question for poll:</h2>
             <form asp-area="manager" asp-controller="polls" asp-action="create" class="form" method="post">
                 <div>
-
                 </div>
                 <input asp-for="EventId" type="hidden">
                 <input asp-for="EventCode" type="hidden">
@@ -50,7 +48,7 @@
                 </div>
             </form>
         </div>
-    </div>    
+    </div>
 </div>
 
 <script>
@@ -68,15 +66,12 @@
         textarea.setAttribute('name', 'answers');
         textarea.setAttribute('rows', '1');
         textarea.setAttribute('maxlength', '256');
-        textarea.setAttribute('class', 'form-control answer'); 
-                
+        textarea.setAttribute('class', 'form-control answer');
+
         var div = document.createElement('div');
         div.setAttribute('class', 'form-group ask-form answer');
         div.appendChild(textarea);
-        
+
         document.getElementById('answers').appendChild(div);
     }
 </script>
-
-
-

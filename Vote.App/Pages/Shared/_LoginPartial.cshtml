@@ -4,10 +4,6 @@
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 
-
-
-
-
 @if (SignInManager.IsSignedIn(User))
 {
     char firstLetter = UserManager.GetUserName(User).ToUpper()[0];
@@ -34,5 +30,3 @@ else
         <a class="nav-link" asp-area="Identity" asp-page="/Account/Login"><span class="h4">Login</span></a>
     </div>
 }
-
-    

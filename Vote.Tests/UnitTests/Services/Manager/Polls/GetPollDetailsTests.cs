@@ -1,21 +1,14 @@
-﻿using AutoMapper;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Vote.Common.ViewModels.Polls;
-using Vote.Data;
-using Vote.Entities;
-using Vote.Services.Manager;
 
 namespace Vote.Tests.UnitTests.Services.Manager.Polls
 {
     [TestClass]
     public class GetPollDetailsTests : BasePollTest
-    {        
+    {
         [TestMethod]
         public void WithValidPollId_ReturnsPollDetailsModel()
-        { 
+        {
             var pollId = 99;
 
             var model = this.service.GetPollDetails(pollId);

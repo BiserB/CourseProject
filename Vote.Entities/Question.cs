@@ -10,7 +10,7 @@ namespace Vote.Entities
         {
             this.IsArchived = false;
             this.IsDeleted = false;
-            this.Replies = new List<Reply>();            
+            this.Replies = new List<Reply>();
         }
 
         public int Id { get; set; }
@@ -35,11 +35,11 @@ namespace Vote.Entities
         public int Upvotes { get; set; }
 
         public int Downvotes { get; set; }
-        
+
         public bool IsArchived { get; set; }
 
         public bool IsDeleted { get; set; }
 
-        public List<Reply> Replies { get; set; } 
+        public List<Reply> Replies { get; set; }
     }
 }

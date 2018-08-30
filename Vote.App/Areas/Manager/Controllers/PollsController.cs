@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using Vote.Common.BindingModels;
-using Vote.Common.ViewModels.Events;
-using Vote.Data;
 using Vote.Entities;
 using Vote.Services.Manager.Interfaces;
 
@@ -16,8 +11,8 @@ namespace Vote.App.Areas.Manager.Controllers
     {
         private IManagerPollsService service;
 
-        public PollsController(UserManager<User> userManager,IManagerPollsService service)
-            :base(userManager)
+        public PollsController(UserManager<User> userManager, IManagerPollsService service)
+            : base(userManager)
         {
             this.service = service;
         }
@@ -43,7 +38,7 @@ namespace Vote.App.Areas.Manager.Controllers
             return View(pollModel);
         }
 
-        [HttpPost]        
+        [HttpPost]
         public async Task<IActionResult> Create(PollBindingModel model)
         {
             if (!this.ModelState.IsValid)
@@ -65,7 +60,7 @@ namespace Vote.App.Areas.Manager.Controllers
                 return LocalRedirect("/home/index");
             }
 
-            return RedirectToAction("Index", new { id = model.EventId});
+            return RedirectToAction("Index", new { id = model.EventId });
         }
 
         [HttpGet]

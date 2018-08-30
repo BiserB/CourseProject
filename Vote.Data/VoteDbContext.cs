@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Vote.Entities;
 
@@ -13,7 +10,7 @@ namespace Vote.Data
             : base(options)
         {
         }
-        
+
         public DbSet<Event> Events { get; set; }
 
         public DbSet<Question> Questions { get; set; }
@@ -25,7 +22,6 @@ namespace Vote.Data
         public DbSet<PollQuestion> PollQuestions { get; set; }
 
         public DbSet<PollAnswer> PollAnswers { get; set; }
-
 
         protected override void OnModelCreating(ModelBuilder mb)
         {

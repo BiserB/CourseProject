@@ -1,8 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Vote.Common.BindingModels;
 using Vote.Data;
 using Vote.Entities;
@@ -19,7 +16,7 @@ namespace Vote.Tests.UnitTests.Services.Participant.Replies
 
         [TestMethod]
         public void WithValidModel_ReplyIsAdded()
-        {   
+        {
             var repliesBefore = this.db.Questions.Find(1).Replies.Count;
 
             var model = new ReplyBindingModel()
@@ -45,7 +42,7 @@ namespace Vote.Tests.UnitTests.Services.Participant.Replies
             {
                 QuestionId = 101,
                 ReplyContent = "My reply"
-            };                       
+            };
 
             var result = this.service.SaveReply(model);
 

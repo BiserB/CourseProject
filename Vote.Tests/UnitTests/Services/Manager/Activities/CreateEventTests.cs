@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Vote.Common.BindingModels;
 using Vote.Data;
 using Vote.Services.Manager;
@@ -38,7 +36,7 @@ namespace Vote.Tests.UnitTests.Services.Manager.Activities
 
             Assert.AreEqual(1, dbEvents.Count);
         }
-        
+
         [TestInitialize]
         public void InitializeTests()
         {

@@ -1,18 +1,10 @@
-﻿using AutoMapper;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Vote.Data;
-using Vote.Entities;
-using Vote.Services.Manager;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Vote.Tests.UnitTests.Services.Manager.Polls
 {
     [TestClass]
     public class SetIsActivePollTests : BasePollTest
-    {        
-
+    {
         [TestMethod]
         public void WithInactivePoll_ReturnsActivePoll()
         {
@@ -59,8 +51,8 @@ namespace Vote.Tests.UnitTests.Services.Manager.Polls
             this.db.Polls.Find(pollId1).IsActive = true;
             this.db.Polls.Find(pollId2).IsActive = true;
             this.db.SaveChanges();
-            
-            this.service.SetIsActivePoll(deactivatorId , eventId);
+
+            this.service.SetIsActivePoll(deactivatorId, eventId);
 
             var isActivePoll1 = this.db.Polls.Find(pollId1).IsActive;
             var isActivePoll2 = this.db.Polls.Find(pollId2).IsActive;

@@ -1,0 +1,23 @@
+﻿[
+  {
+    "EventId": "1",
+    "PollQuestionId": "1",
+    "CreatedOn": "2017-02-02"
+  },
+  {
+    "EventId": "1",
+    "PollQuestionId": "2",
+    "CreatedOn": "2017-02-22"
+  },
+  {
+    "EventId": "2",
+    "PollQuestionId": "3",
+    "CreatedOn": "2017-02-10"
+  },
+  {
+    "EventId": "2",
+    "PollQuestionId": "4",
+    "CreatedOn": "2017-02-12"
+  }
+
+]

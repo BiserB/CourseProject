@@ -1,0 +1,47 @@
+﻿[
+  {
+    "Votes": 12,
+    "PollId": 1,
+    "Content": "Yes"
+  },
+  {
+    "Votes": 14,
+    "PollId": 1,
+    "Content": "No"
+  },
+  {
+    "Votes": 0,
+    "PollId": 1,
+    "Content": "Maybe"
+  },
+  {
+    "Votes": 15,
+    "PollId": 2,
+    "Content": "Measures the ability of non-native speakers "
+  },
+  {
+    "Votes": 25,
+    "PollId": 2,
+    "Content": "To use and understand North American English"
+  },
+  {
+    "Votes": 9,
+    "PollId": 3,
+    "Content": "At a test center in your country. "
+  },
+  {
+    "Votes": 6,
+    "PollId": 3,
+    "Content": "Online"
+  },
+  {
+    "Votes": 0,
+    "PollId": 4,
+    "Content": "You can buy TOEFL materials here"
+  },
+  {
+    "Votes": 0,
+    "PollId": 4,
+    "Content": "You can read online"
+  }
+]

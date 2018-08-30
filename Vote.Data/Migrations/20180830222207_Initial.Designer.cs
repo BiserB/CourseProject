@@ -10,7 +10,7 @@ using Vote.Data;
 namespace Vote.Data.Migrations
 {
     [DbContext(typeof(VoteDbContext))]
-    [Migration("20180821075750_Initial")]
+    [Migration("20180830222207_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -148,9 +148,9 @@ namespace Vote.Data.Migrations
 
                     b.Property<DateTime>("EndDate");
 
-                    b.Property<bool>("IsDeleted");
+                    b.Property<bool>("IsClosed");
 
-                    b.Property<bool>("IsPrivate");
+                    b.Property<bool>("IsDeleted");
 
                     b.Property<DateTime>("StartDate");
 
@@ -213,8 +213,6 @@ namespace Vote.Data.Migrations
 
                     b.Property<int>("PollId");
 
-                    b.Property<DateTime>("PublishedOn");
-
                     b.Property<int>("Votes");
 
                     b.HasKey("Id");
@@ -249,7 +247,8 @@ namespace Vote.Data.Migrations
 
                     b.Property<string>("AuthorId");
 
-                    b.Property<string>("AuthorName");
+                    b.Property<string>("AuthorName")
+                        .IsRequired();
 
                     b.Property<string>("Content")
                         .HasMaxLength(256);
@@ -281,26 +280,22 @@ namespace Vote.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AuthorId");
+                    b.Property<string>("AuthorId");
 
-                    b.Property<string>("AuthorId1")
+                    b.Property<string>("AuthorName")
                         .IsRequired();
 
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasMaxLength(256);
 
-                    b.Property<int>("Downvotes");
-
                     b.Property<DateTime>("PublishedOn");
 
                     b.Property<int>("QuestionId");
 
-                    b.Property<int>("Upvotes");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("AuthorId1");
+                    b.HasIndex("AuthorId");
 
                     b.HasIndex("QuestionId");
 
@@ -464,8 +459,7 @@ namespace Vote.Data.Migrations
                 {
                     b.HasOne("Vote.Entities.User", "Author")
                         .WithMany()
-                        .HasForeignKey("AuthorId1")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("AuthorId");
 
                     b.HasOne("Vote.Entities.Question", "Question")
                         .WithMany("Replies")

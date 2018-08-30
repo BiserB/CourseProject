@@ -1,8 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Vote.Data;
 using Vote.Services.Manager;
 
@@ -36,7 +33,7 @@ namespace Vote.Tests.UnitTests.Services.Manager.Activities
             var userId = "ABC";
 
             var isDeleted = this.service.DeleteEvent(id, userId);
-                        
+
             Assert.AreEqual(true, isDeleted);
         }
 

@@ -1,5 +1,4 @@
-﻿
-@model EventFullModel
+﻿@model EventFullModel
 @{
     ViewData["Title"] = "Display";
     ViewData["Header"] = Model.Title;
@@ -24,7 +23,7 @@
                     }
                     else
                     {
-                        @Html.DisplayFor(m => m.ActiveQuestions, "QuestionFullModelCollection")                       
+                        @Html.DisplayFor(m => m.ActiveQuestions, "QuestionFullModelCollection")
                     }
                 }
             </div>
@@ -41,9 +40,7 @@
             </div>
         </div>
     </div>
-
 </div>
-
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
@@ -62,7 +59,7 @@
                 if (message !== null) {
                     message.parentNode.removeChild(message);
                 }
-                
+
                 var postHtml = [
                     '<div class="mr-3">' + questionContent + '</div>',
                     '<div class="row ml-0"><span class="content-mutted">' + publishedOn + '</span>',
@@ -123,7 +120,5 @@
             await connection.invoke("JoinToGroup", eventCode);
 
         })();
-
     </script>
 }
-

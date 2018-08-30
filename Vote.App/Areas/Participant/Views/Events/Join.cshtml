@@ -5,7 +5,7 @@
 
 <div class="row">
     <div class="col-md-6 ask-section">
-        <h1 class="h4 ml-auto mr-auto mt-md-2"><strong>@Model.EventTitle</strong> <span class="code-mutted">@Model.EventCode</span></h1>
+        <h1 class="h4 mt-md-2"><strong>@Model.EventTitle</strong> <span class="code-mutted float-right">@Model.EventCode</span></h1>
         <span>Type your question</span>
         <div class="container">
             <form asp-area="participant" asp-controller="events" asp-action="ask" class="form" method="post">
@@ -41,7 +41,7 @@
                 <p class="text-center h5">Poll section</p>
                 <div class="text-center">
                     <a asp-area="participant" asp-controller="polls" asp-action="vote" asp-route-id="@Model.EventId" class="btn btn-outline-info">Polls</a>
-                </div>                
+                </div>
             </div>
         </div>
     </div>
@@ -91,7 +91,7 @@
                                             <input asp-for="EventId" type="hidden">
                                             <input asp-for="EventCode" type="hidden">
                                             <label asp-for="Reply.ReplyAuthor" class="sr-only"></label>
-                                            <input asp-for="Reply.ReplyAuthor" name="replyAuthor" class="author-reply border-0 ml-4 pl-2 paradiso swans-bg" placeholder="Anonymous">                                            
+                                            <input asp-for="Reply.ReplyAuthor" name="replyAuthor" class="author-reply border-0 ml-4 pl-2 paradiso swans-bg" placeholder="Anonymous">
                                             <input type="submit" class="btn btn-sm btn-outline-info ml-auto mr-2" value="Send" />
                                         </div>
                                     </form>
@@ -99,7 +99,7 @@
                             </div>
 
                             <div class="collapse mt-3" id="repliesFor@(question.Id)">
-                                @Html.DisplayFor(m => question.Replies, "ReplyViewModelCollection")                                
+                                @Html.DisplayFor(m => question.Replies, "ReplyViewModelCollection")
                             </div>
 
                             <hr class="style5" />
@@ -111,8 +111,7 @@
     </div>
 </div>
 
-
 @section Scripts {
         <partial name="_ValidationScriptsPartial" />
-        <partial name="_SignalRConnection" />        
+        <partial name="_SignalRConnection" />
     }

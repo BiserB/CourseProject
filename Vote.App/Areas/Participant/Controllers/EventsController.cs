@@ -1,18 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Vote.Common.ViewModels.Events;
-using Vote.Common;
-using Vote.Data;
-using Vote.Entities;
-using Vote.Common.BindingModels;
-using Vote.App.Infrastructure.Hubs;
-using Vote.Services.Participant.Interfaces;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using System.Threading.Tasks;
+using Vote.App.Infrastructure.Hubs;
+using Vote.Common.BindingModels;
+using Vote.Services.Participant.Interfaces;
 
 namespace Vote.App.Areas.Participant.Controllers
 {
@@ -21,7 +12,7 @@ namespace Vote.App.Areas.Participant.Controllers
         private readonly IParticipantEventsService service;
         private readonly IHubContext<VoteHub> hubContext;
 
-        public EventsController(IParticipantEventsService service, IHubContext<VoteHub> hubContext) 
+        public EventsController(IParticipantEventsService service, IHubContext<VoteHub> hubContext)
                          : base()
         {
             this.service = service;
@@ -42,7 +33,7 @@ namespace Vote.App.Areas.Participant.Controllers
             {
                 return LocalRedirect("~/NoResult");
             }
-            
+
             var joinModel = this.service.CreateEventModel(dbEvent);
 
             return View(joinModel);
@@ -53,7 +44,7 @@ namespace Vote.App.Areas.Participant.Controllers
         {
             if (!this.ModelState.IsValid)
             {
-                return RedirectToAction("Join", new { code = model.EventCode});
+                return RedirectToAction("Join", new { code = model.EventCode });
             }
 
             var q = this.service.CreateQuestion(model);
@@ -70,6 +61,5 @@ namespace Vote.App.Areas.Participant.Controllers
 
             return RedirectToAction("Join", new { code = model.EventCode });
         }
-         
     }
 }

@@ -1,7 +1,4 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Vote.Common.BindingModels;
 using Vote.Common.ViewModels.Events;
 using Vote.Common.ViewModels.Polls;
@@ -36,7 +33,7 @@ namespace Vote.Services.Manager.MapperProfile
                 .ForMember(e => e.ActiveQuestions, opt => opt.Ignore())
                 .ForMember(e => e.ArchivedQuestions, opt => opt.Ignore());
 
-            this.CreateMap<Reply, ReplyViewModel >();
+            this.CreateMap<Reply, ReplyViewModel>();
 
             this.CreateMap<Question, RestoreQuestionModel>();
 

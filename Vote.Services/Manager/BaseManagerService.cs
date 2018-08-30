@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using AutoMapper;
+using System;
 using System.Linq;
-using System.Text;
-using AutoMapper;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Vote.Data;
 using Vote.Entities;
 
@@ -16,9 +12,9 @@ namespace Vote.Services.Manager
         protected IMapper mapper;
         private Random random;
 
-        protected BaseManagerService(VoteDbContext db,  
-                                    IMapper mapper) 
-                             
+        protected BaseManagerService(VoteDbContext db,
+                                    IMapper mapper)
+
         {
             this.db = db;
             this.mapper = mapper;

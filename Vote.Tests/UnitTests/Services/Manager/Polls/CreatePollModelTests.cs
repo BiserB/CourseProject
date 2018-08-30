@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Vote.Common.BindingModels;
 using Vote.Data;
 using Vote.Services.Manager;
@@ -30,7 +28,7 @@ namespace Vote.Tests.UnitTests.Services.Manager.Polls
         public void WithInvalidEventIdThrowsNullReferenceException()
         {
             var eventId = 101;
-            
+
             Assert.ThrowsException<NullReferenceException>(() => this.service.CreatePollModel(eventId));
         }
 

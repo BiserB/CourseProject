@@ -8,7 +8,7 @@
 <div class="row bright-bg">
     <div class="container paradiso-bg bright">
         <div class="row text-center my-2">
-            <div class="col-4 text-left swans h4">
+            <div class="col-4 text-left swans h5">
                 # @Model.EventCode Js Core Basics
             </div>
             <div class="col-8 text-left h4">
@@ -47,7 +47,7 @@
                         <hr class="style7" />
                         <div class="row">
                             <div class="col-10">
-                                <span><a href="/manager/polls/details/@poll.Id">@poll.PollQuestion</a></span>
+                                <span class="swans-bg p-1"><a href="/manager/polls/details/@poll.Id">@poll.PollQuestion</a></span>
 
                                 <span class="text-muted font-weight-light">@poll.CreatedOn.ToString("g")</span>
                                 <span class="font-weight-bold">
@@ -61,7 +61,6 @@
                                         <span class="checkmark"></span>
                                     </label>
                                     <button value="@poll.Id" type="button" data-toggle="modal" data-target="#confirmation" class="delete btn btn-sm ml-5 mr-3"><i class="fa fa-trash"></i></button>
-
                                 </div>
                             </div>
                         </div>
@@ -79,9 +78,7 @@
                                 <span class="checkmark"></span>
                             </label>
                             <label class="mx-5 pt-0">
-
                             </label>
-
                         </div>
                     </div>
                     <div class="row">
@@ -102,11 +99,8 @@
                 <hr class="style7" />
             }
         }
-
     </div>
-
 </div>
-
 
 <div class="modal fade" id="confirmation" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -129,7 +123,6 @@
         </div>
     </div>
 </div>
-
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

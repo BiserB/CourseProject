@@ -27,7 +27,7 @@
                     <span class="checkmark"></span>
                 </label>
                 <span asp-validation-for="AnonymousAllowed" class="text-danger"></span>
-            </div>            
+            </div>
             <div class="row">
                 <div class="form-group col-6">
                     <input type="text" asp-for="StartDate" value="@Model.StartDate.ToString("yyyy-MM-dd")" class="datepicker form-control">
@@ -46,7 +46,6 @@
     </div>
 </div>
 
-
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <partial name="_DatePicker" />
@@ -56,4 +55,3 @@
 })
     </script>
 }
-

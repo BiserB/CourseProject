@@ -1,8 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Vote.Common.ViewModels.Events;
 using Vote.Data;
 using Vote.Services.Manager;

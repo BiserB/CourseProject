@@ -3,7 +3,7 @@
     ViewData["Title"] = "SetupEvent";
 }
 
-@{ 
+@{
     var state = "Active";
 
     if (Model.EndDate < DateTime.Today)
@@ -13,8 +13,8 @@
 }
 
 <div class="bright-bg height80">
-    <div class="row ml-lg-5">      
-        
+    <div class="row ml-lg-5">
+
         <div class="ml-auto mr-auto"><span class="paradiso h4">@state event</span></div>
     </div>
 
@@ -40,16 +40,16 @@
                             <input type="text" asp-for="StartDate" value="@Model.StartDate.ToString("yyyy-MM-dd")" class="datepicker form-control">
                             <label asp-for="StartDate"></label>
                         </div>
-                        <div class="form-group col-6">                            
+                        <div class="form-group col-6">
                             <input type="text" asp-for="EndDate" value="@Model.EndDate.ToString("yyyy-MM-dd")" class="datepicker form-control">
                             <label asp-for="EndDate"></label>
                         </div>
-                    </div>                    
+                    </div>
                 </div>
             </div>
 
             <div class="col-md-6">
-                <div class="col-md-10 ml-auto mr-auto"> 
+                <div class="col-md-10 ml-auto mr-auto">
                     <hr />
                     <div>
                         <label class="custom-checkbox">
@@ -68,7 +68,7 @@
                         </label>
                         <span asp-validation-for="AnonymousAllowed" class="text-danger"></span>
                     </div>
-                    <hr />                    
+                    <hr />
                     <hr />
                 </div>
             </div>

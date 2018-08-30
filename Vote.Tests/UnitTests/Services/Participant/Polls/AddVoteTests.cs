@@ -1,7 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Vote.Common.BindingModels;
 
 namespace Vote.Tests.UnitTests.Services.Participant.Polls
@@ -16,7 +13,7 @@ namespace Vote.Tests.UnitTests.Services.Participant.Polls
 
             var votesBefore = this.db.PollAnswers.Find(pollOptionId).Votes;
 
-            var model = new PollVoteModel() { PollId = 99, EventCode = "001" , Option = pollOptionId.ToString()};
+            var model = new PollVoteModel() { PollId = 99, EventCode = "001", Option = pollOptionId.ToString() };
 
             this.service.AddVote(model);
 

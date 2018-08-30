@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using System.Threading.Tasks;
 using Vote.App.Infrastructure.Hubs;
 using Vote.Common.BindingModels;
-using Vote.Common.ViewModels.Events;
-using Vote.Data;
 using Vote.Entities;
 using Vote.Services.Manager.Interfaces;
-using System.IO;
 
 namespace Vote.App.Areas.Manager.Controllers
 {
@@ -23,7 +16,7 @@ namespace Vote.App.Areas.Manager.Controllers
 
         public ActivitiesController(UserManager<User> userManager,
                                     IManagerActivitiesService service,
-                                    IHubContext<VoteHub> hubContext) 
+                                    IHubContext<VoteHub> hubContext)
             : base(userManager)
         {
             this.service = service;
@@ -36,7 +29,7 @@ namespace Vote.App.Areas.Manager.Controllers
             var userId = await this.GetCurrentUserId();
 
             var eventList = this.service.GetAllEventsForUser(userId);
-            
+
             return View(eventList);
         }
 
@@ -50,8 +43,7 @@ namespace Vote.App.Areas.Manager.Controllers
             return View(model);
         }
 
-
-        [HttpPost]        
+        [HttpPost]
         public async Task<IActionResult> Create(CreateEventBindingModel model)
         {
             if (!this.ModelState.IsValid)
@@ -87,6 +79,5 @@ namespace Vote.App.Areas.Manager.Controllers
 
             return this.View(dbEventModel);
         }
-
     }
 }

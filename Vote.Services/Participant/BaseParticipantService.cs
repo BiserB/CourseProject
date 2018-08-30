@@ -1,17 +1,14 @@
 ﻿using AutoMapper;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Vote.Common.ViewModels.Events;
 using Vote.Data;
-using Vote.Entities;
 
 namespace Vote.Services.Participant
 {
     public abstract class BaseParticipantService
     {
-        protected readonly VoteDbContext db;       
+        protected readonly VoteDbContext db;
         protected readonly IMapper mapper;
 
         public BaseParticipantService(VoteDbContext db, IMapper mapper)

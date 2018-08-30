@@ -2,12 +2,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Vote.Data;
 using Vote.Common;
+using Vote.Data;
 using Vote.Entities;
 
 namespace Vote.App.Infrastructure.Extensions
@@ -42,7 +38,7 @@ namespace Vote.App.Infrastructure.Extensions
                     }
                 }
 
-                var sysadmin = await userManager.FindByNameAsync("sysadmin");               
+                var sysadmin = await userManager.FindByNameAsync("sysadmin");
 
                 if (sysadmin == null)
                 {
@@ -57,7 +53,6 @@ namespace Vote.App.Infrastructure.Extensions
 
                     await userManager.AddToRoleAsync(user, RoleType.SysAdmin);
                 }
-                
             }
         }
     }

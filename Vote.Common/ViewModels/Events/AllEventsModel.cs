@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Vote.Common.BindingModels;
+﻿using System.Collections.Generic;
 
 namespace Vote.Common.ViewModels.Events
 {

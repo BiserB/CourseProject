@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System;
+using System.Text.Encodings.Web;
+using System.Threading.Tasks;
 using Vote.App.Areas.Identity.Models;
 using Vote.Entities;
 
@@ -126,7 +123,6 @@ namespace Vote.App.Areas.Identity.Pages.Account.Manage
             {
                 return NotFound($"Unable to load user with ID '{userManager.GetUserId(User)}'.");
             }
-
 
             var userId = await userManager.GetUserIdAsync(user);
             var email = await userManager.GetEmailAsync(user);

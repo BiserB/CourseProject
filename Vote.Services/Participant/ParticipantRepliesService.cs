@@ -1,10 +1,5 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Vote.Common;
 using Vote.Common.BindingModels;
 using Vote.Data;
@@ -13,12 +8,11 @@ using Vote.Services.Participant.Interfaces;
 
 namespace Vote.Services.Participant
 {
-    public class ParticipantRepliesService : BaseParticipantService , IParticipantRepliesService
+    public class ParticipantRepliesService : BaseParticipantService, IParticipantRepliesService
     {
         public ParticipantRepliesService(VoteDbContext db, IMapper mapper)
-            :base(db, mapper)
+            : base(db, mapper)
         {
-
         }
 
         public bool SaveReply(ReplyBindingModel model)

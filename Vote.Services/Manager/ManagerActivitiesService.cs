@@ -1,11 +1,7 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Vote.Common.BindingModels;
 using Vote.Common.ViewModels.Events;
 using Vote.Data;
@@ -14,7 +10,6 @@ using Vote.Services.Manager.Interfaces;
 
 namespace Vote.Services.Manager
 {
-
     public class ManagerActivitiesService : BaseManagerService, IManagerActivitiesService
     {
         public ManagerActivitiesService(VoteDbContext db,
@@ -57,7 +52,7 @@ namespace Vote.Services.Manager
         public void CreateEvent(CreateEventBindingModel model, string userId)
         {
             var newEvent = this.mapper.Map<Event>(model);
-            
+
             newEvent.CreatorId = userId;
 
             this.db.Events.Add(newEvent);
@@ -108,23 +103,21 @@ namespace Vote.Services.Manager
                                        Id = q.Id,
                                        AuthorName = q.AuthorName,
                                        Content = q.Content,
-                                       PublishedOn = q.PublishedOn.ToShortDateString(),                                       
+                                       PublishedOn = q.PublishedOn.ToShortDateString(),
                                        EventId = dbEvent.Id,
                                        EventCode = dbEvent.Code,
                                        IsArchived = q.IsArchived,
-                                       Upvotes = q.Upvotes,                                       
+                                       Upvotes = q.Upvotes,
                                        Doqwnvotes = q.Downvotes,
                                        Replies = q.Replies
                                                   .Select(r => new ReplyViewModel()
                                                   {
                                                       AuthorName = r.AuthorName,
-                                                      Content = r.Content,
-                                                      Upvotes = r.Upvotes,
-                                                      Downvotes = r.Downvotes
+                                                      Content = r.Content
                                                   }).ToList()
-                                   })                                   
+                                   })
                                    .ToList();
-            
+
             var eventModel = this.mapper.Map<EventFullModel>(dbEvent);
 
             eventModel.ActiveQuestions = questions.Where(q => q.IsArchived == false).ToList();
@@ -132,6 +125,5 @@ namespace Vote.Services.Manager
 
             return eventModel;
         }
-
     }
 }

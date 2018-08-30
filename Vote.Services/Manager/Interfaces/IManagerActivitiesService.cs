@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using Vote.Common.BindingModels;
+﻿using Vote.Common.BindingModels;
 using Vote.Common.ViewModels.Events;
 
 namespace Vote.Services.Manager.Interfaces

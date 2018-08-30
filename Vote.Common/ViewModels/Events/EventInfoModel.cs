@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Vote.Common.ViewModels.Events
+﻿namespace Vote.Common.ViewModels.Events
 {
     public class EventInfoModel
     {

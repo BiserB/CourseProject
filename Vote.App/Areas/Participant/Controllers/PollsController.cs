@@ -1,12 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Vote.App.Infrastructure.Session;
 using Vote.Common;
 using Vote.Common.BindingModels;
 using Vote.Services.Participant.Interfaces;
-using Vote.App.Infrastructure.Session;
 
 namespace Vote.App.Areas.Participant.Controllers
 {
@@ -26,7 +22,7 @@ namespace Vote.App.Areas.Participant.Controllers
 
             if (votedInPoll)
             {
-               return RedirectToAction("PollResults", new { id });
+                return RedirectToAction("PollResults", new { id });
             }
 
             var pollModel = this.service.GetActivePoll(id);
@@ -51,8 +47,7 @@ namespace Vote.App.Areas.Participant.Controllers
                     string pollId = model.PollId.ToString();
 
                     this.HttpContext.Session.SetPollId(pollId, VoteConstants.Voted);
-                }                
-
+                }
             }
 
             return RedirectToAction("PollResults", new { id = model.PollId });

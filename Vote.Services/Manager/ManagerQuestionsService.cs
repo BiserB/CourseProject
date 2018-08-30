@@ -1,14 +1,8 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Vote.Common.ViewModels.Events;
 using Vote.Data;
-using Vote.Entities;
 using Vote.Services.Manager.Interfaces;
 
 namespace Vote.Services.Manager
@@ -18,7 +12,6 @@ namespace Vote.Services.Manager
         public ManagerQuestionsService(VoteDbContext db, IMapper mapper)
             : base(db, mapper)
         {
-
         }
 
         public bool Delete(int id, int eventId, string userId)
@@ -96,6 +89,5 @@ namespace Vote.Services.Manager
 
             return restoreQuestionModel;
         }
-
     }
 }

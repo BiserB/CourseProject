@@ -1,7 +1,4 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Vote.Services.Manager.MapperProfile;
 
 namespace Vote.Tests.UnitTests

@@ -211,8 +211,6 @@ namespace Vote.Data.Migrations
 
                     b.Property<int>("PollId");
 
-                    b.Property<DateTime>("PublishedOn");
-
                     b.Property<int>("Votes");
 
                     b.HasKey("Id");
@@ -280,9 +278,7 @@ namespace Vote.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AuthorId");
-
-                    b.Property<string>("AuthorId1");
+                    b.Property<string>("AuthorId");
 
                     b.Property<string>("AuthorName")
                         .IsRequired();
@@ -291,17 +287,13 @@ namespace Vote.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(256);
 
-                    b.Property<int>("Downvotes");
-
                     b.Property<DateTime>("PublishedOn");
 
                     b.Property<int>("QuestionId");
 
-                    b.Property<int>("Upvotes");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("AuthorId1");
+                    b.HasIndex("AuthorId");
 
                     b.HasIndex("QuestionId");
 
@@ -465,7 +457,7 @@ namespace Vote.Data.Migrations
                 {
                     b.HasOne("Vote.Entities.User", "Author")
                         .WithMany()
-                        .HasForeignKey("AuthorId1");
+                        .HasForeignKey("AuthorId");
 
                     b.HasOne("Vote.Entities.Question", "Question")
                         .WithMany("Replies")

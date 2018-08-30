@@ -1,13 +1,8 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Vote.Common;
-using Vote.Data;
 using Vote.Entities;
 
 namespace Vote.App.Areas.Manager.Controllers
@@ -22,7 +17,7 @@ namespace Vote.App.Areas.Manager.Controllers
         {
             this.userManager = userManager;
         }
-        
+
         protected async Task<User> GetCurrentUser()
         {
             var principal = this.HttpContext.User;
@@ -43,7 +38,5 @@ namespace Vote.App.Areas.Manager.Controllers
 
             return isManager;
         }
-
-        
     }
 }

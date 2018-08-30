@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Vote.Common.ViewModels.Polls
+﻿namespace Vote.Common.ViewModels.Polls
 {
     public class PollAnswerInfoModel
     {

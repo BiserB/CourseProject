@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace Vote.Entities
 {
@@ -36,7 +35,7 @@ namespace Vote.Entities
 
         public DateTime EndDate { get; set; }
 
-        public bool IsClosed { get; set; }        
+        public bool IsClosed { get; set; }
 
         public bool AnonymousAllowed { get; set; }
 

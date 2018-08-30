@@ -43,12 +43,12 @@ main {
 }
 
 .bright-bg {
-    background-color: #feffff;    
+    background-color: #feffff;
 }
 
 hr.style1 {
     border-top: 1px double #8c8b8b;
-    margin: 0px -15px 0px -15px ;    
+    margin: 0px -15px 0px -15px ;
 }
 
 hr.style2 {
@@ -112,7 +112,7 @@ a:visited {
 }
 
 a:hover {
-    color: #3aafa9;   
+    color: #3aafa9;
     text-decoration: none;
 }
 a:active {
@@ -150,7 +150,7 @@ a:active {
 
 /*--------Events Nav---------*/
 
-.nav-tabs .nav-item {    
+.nav-tabs .nav-item {
     background: #def2f1;
     border-bottom: none;
     margin-bottom: -1px;
@@ -170,8 +170,6 @@ a:active {
 }
 
 /*--------Events Nav---------*/
-
-
 
 /*--------Login---------*/
 .form-control {
@@ -262,7 +260,7 @@ a.btn-secondary {
 }
 
 /*@media (max-width: 640px) {
-    .ask-section {        
+    .ask-section {
         min-height: 100vh;
     }
 }*/
@@ -294,7 +292,7 @@ a.btn-secondary {
 .reply-form {
     background: #feffff;
     box-shadow: 10px 5px 10px 10px #BBCCCA;
-    border: initial;    
+    border: initial;
     margin-bottom: 30px;
     margin-top: 20px;
     margin-right: 35px;
@@ -322,7 +320,6 @@ a.btn-secondary {
     background-color: #def2f1;
     color: #2b7a78;
     border: 0;
-    
 }
 
 /*-------------- Question list -------------*/
@@ -343,8 +340,6 @@ a.btn-secondary {
     color: darkgray;
     font-size: inherit;
 }
-
-
 
 /*-------------- Checkbox -------------*/
 .custom-checkbox {

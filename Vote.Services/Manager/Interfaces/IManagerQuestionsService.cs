@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Vote.Common.ViewModels.Events;
-using Vote.Entities;
+﻿using Vote.Common.ViewModels.Events;
 
 namespace Vote.Services.Manager.Interfaces
 {
@@ -13,6 +9,5 @@ namespace Vote.Services.Manager.Interfaces
         bool Archive(int id, int eventId, string userId);
 
         RestoreQuestionModel Restore(int id);
-
     }
 }

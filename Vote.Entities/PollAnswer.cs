@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Vote.Entities
 {
@@ -17,7 +16,5 @@ namespace Vote.Entities
 
         [Required]
         public Poll Poll { get; set; }
-
-        public DateTime PublishedOn { get; set; }
     }
 }

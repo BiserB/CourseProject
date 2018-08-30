@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Vote.Common.ViewModels.Events
 {
     public class QuestionFullModel
     {
+        public QuestionFullModel()
+        {
+            this.Replies = new List<ReplyViewModel>();
+        }
+
         public int Id { get; set; }
 
         public string AuthorName { get; set; }

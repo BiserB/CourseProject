@@ -1,7 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using Vote.Common.ViewModels.Polls;
 
 namespace Vote.Tests.UnitTests.Services.Participant.Polls

@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using Vote.Data;
 using Vote.Entities;
 
@@ -58,7 +57,6 @@ namespace Vote.Tests.UnitTests
                     StartDate = DateTime.Now,
                     EndDate = DateTime.Now.AddDays(3)
                 }
-
             };
 
             db.AddRange(activities);

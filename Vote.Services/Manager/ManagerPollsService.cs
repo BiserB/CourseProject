@@ -1,10 +1,7 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Vote.Common.BindingModels;
 using Vote.Common.ViewModels.Events;
@@ -20,7 +17,6 @@ namespace Vote.Services.Manager
         public ManagerPollsService(VoteDbContext db, IMapper mapper)
             : base(db, mapper)
         {
-
         }
 
         public PollBindingModel CreatePollModel(int id)
@@ -74,7 +70,7 @@ namespace Vote.Services.Manager
         public PollPanelModel GetPollsPanel(int id)
         {
             var eventInfo = GetEventInfo(id);
-            
+
             var polls = this.db.Polls
                                .Where(p => p.EventId == id && p.IsDeleted == false)
                                .Select(p => new PollViewModel
@@ -90,7 +86,7 @@ namespace Vote.Services.Manager
             var pollPanelModel = this.mapper.Map<PollPanelModel>(eventInfo);
 
             pollPanelModel.Polls = polls;
-            
+
             return pollPanelModel;
         }
 
@@ -112,7 +108,7 @@ namespace Vote.Services.Manager
         }
 
         public PollDetailsModel GetPollDetails(int id)
-        {            
+        {
             var pollDetails = db.Polls
                                 .Where(p => p.Id == id && p.IsDeleted == false)
                                 .Select(p => new PollDetailsModel()
@@ -128,7 +124,7 @@ namespace Vote.Services.Manager
                                     IsDeleted = p.IsDeleted
                                 })
                                 .FirstOrDefault();
-            
+
             return pollDetails;
         }
 
@@ -150,7 +146,7 @@ namespace Vote.Services.Manager
                 if (poll == null)
                 {
                     throw new NullReferenceException();
-                }               
+                }
 
                 poll.IsActive = true;
             }

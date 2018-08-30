@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using System.Threading.Tasks;
 using Vote.App.Infrastructure.Hubs;
-using Vote.Data;
 using Vote.Entities;
 using Vote.Services.Manager.Interfaces;
 
@@ -69,7 +65,6 @@ namespace Vote.App.Areas.Manager.Controllers
         [HttpPost]
         public async Task<IActionResult> Restore(int id, int eventId, string EventCode)
         {
-
             var q = this.service.Restore(id);
 
             await this.hubContext.Clients.Group(EventCode)

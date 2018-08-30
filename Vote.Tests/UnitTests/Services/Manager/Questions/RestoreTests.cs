@@ -1,9 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Vote.Data;
 using Vote.Entities;
 using Vote.Services.Manager;
@@ -34,7 +31,6 @@ namespace Vote.Tests.UnitTests.Services.Manager.Questions
             Assert.AreEqual(1, questionsRestored);
         }
 
-        
         [TestInitialize]
         public void InitializeTests()
         {
