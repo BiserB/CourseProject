@@ -9,7 +9,7 @@
     <div class="container paradiso-bg bright">
         <div class="row text-center my-2">
             <div class="col-4 text-left swans h5">
-                # @Model.EventCode Js Core Basics
+                # @Model.EventCode
             </div>
             <div class="col-8 text-left h4">
                 @Model.EventTitle
@@ -30,99 +30,13 @@
             }
             else
             {
-                <div class="container">
-                    <div class="text-right mr-md-5">
-                        Choose to activate
-                    </div>
-                </div>
-                <form asp-area="Manager" asp-controller="Polls" asp-action="Activate" id="pollsForm">
-                    @foreach (var poll in Model.Polls)
-                    {
-                        var isChecked = "";
-                        if (poll.IsActive)
-                        {
-                            isChecked = "checked";
-                        }
-
-                        <hr class="style7" />
-                        <div class="row">
-                            <div class="col-10">
-                                <span class="swans-bg p-1"><a href="/manager/polls/details/@poll.Id">@poll.PollQuestion</a></span>
-
-                                <span class="text-muted font-weight-light">@poll.CreatedOn.ToString("g")</span>
-                                <span class="font-weight-bold">
-                                    Votes: @poll.Votes
-                                </span>
-                            </div>
-                            <div class="ml-auto">
-                                <div>
-                                    <label class="custom-checkbox">
-                                        <input type="radio" name="id" value="@poll.Id" @isChecked />
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <button value="@poll.Id" type="button" data-toggle="modal" data-target="#confirmation" class="delete btn btn-sm ml-5 mr-3"><i class="fa fa-trash"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                        <input type="hidden" name="eventId" value="@Model.EventId">
-                    }
-                    <hr class="style7" />
-                    <div class="row py-2 border-bottom border-top">
-                        <div class="col-10 text-left">
-                            <span class="font-weight-bold">Deactivate all</span>
-                        </div>
-
-                        <div class="ml-auto">
-                            <label class="custom-checkbox deact">
-                                <input type="radio" name="id" value="-1" />
-                                <span class="checkmark"></span>
-                            </label>
-                            <label class="mx-5 pt-0">
-                            </label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-9 mr-auto">
-                            <div class="text-left mt-3 ml-5">
-                                <a asp-area="manager" asp-controller="polls" asp-action="create" asp-route-id="@Model.EventId" class="text-nowrap btn btn-outline-dark">
-                                    Add poll
-                                </a>
-                            </div>
-                        </div>
-                        <div class=" ml-auto">
-                            <div class="text-center mt-3 mr-5">
-                                <input type="submit" class="btn btn-secondary" value="Apply" />
-                            </div>
-                        </div>
-                    </div>
-                </form>
-                <hr class="style7" />
+                @Html.EditorForModel() 
             }
         }
     </div>
 </div>
 
-<div class="modal fade" id="confirmation" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                Do you really want to delete this poll? <br />
-                All the poll data will be lost. You can’t undo this action.
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-dark mr-auto" data-dismiss="modal">Cancel</button>
-                <form id="delete-form" asp-area="manager" asp-controller="polls" asp-action="delete">
-                    <input type="hidden" id="id-to-delete" name="id" value="" />
-                    <input type="hidden" id="eventId" name="eventId" value="@Model.EventId" />
-                    <button id="erase" type="button" class="btn btn-secondary ml-auto">Delete</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+<partial name="_PollConfirmDialog" />
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

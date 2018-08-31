@@ -1,0 +1,67 @@
+﻿@model PollPanelModel
+
+<div class="container">
+    <div class="text-right font-weight-bold mt-2 mr-md-2">
+        Choose to activate
+    </div>
+</div>
+<form asp-area="Manager" asp-controller="Polls" asp-action="Activate" id="pollsForm">
+    @foreach (var poll in Model.Polls)
+    {
+        var isChecked = "";
+        if (poll.IsActive)
+        {
+            isChecked = "checked";
+        }
+
+        <hr class="style7" />
+        <div class="row">
+            <div class="col-10">
+                <span class="swans-bg p-1"><a href="/manager/polls/details/@poll.Id">@poll.PollQuestion</a></span>
+                <span class="text-muted font-weight-light">@poll.CreatedOn.ToString("g")</span>
+                <span class="font-weight-bold">Votes: @poll.Votes</span>
+            </div>
+            <div class="ml-auto">
+                <div>
+                    <label class="custom-checkbox">
+                        <input type="radio" name="id" value="@poll.Id" @isChecked />
+                        <span class="checkmark"></span>
+                    </label>
+                    <button value="@poll.Id" type="button" data-toggle="modal" data-target="#confirmation" class="delete btn btn-sm ml-5 mr-3">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" name="eventId" value="@Model.EventId">
+    }
+    <hr class="style7" />
+    <div class="row py-2 border-bottom border-top">
+        <div class="col-10 text-left">
+            <span class="font-weight-bold">Deactivate all</span>
+        </div>
+        <div class="ml-auto">
+            <label class="custom-checkbox deact">
+                <input type="radio" name="id" value="-1" />
+                <span class="checkmark"></span>
+            </label>
+            <label class="mx-5 pt-0">
+            </label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-9 mr-auto">
+            <div class="text-left mt-3 ml-5">
+                <a asp-area="manager" asp-controller="polls" asp-action="create" asp-route-id="@Model.EventId" class="text-nowrap btn btn-outline-dark">
+                    Add poll
+                </a>
+            </div>
+        </div>
+        <div class=" ml-auto">
+            <div class="text-center mt-3 mr-5">
+                <input type="submit" class="btn btn-secondary" value="Apply" />
+            </div>
+        </div>
+    </div>
+    <hr class="style7" />
+</form>

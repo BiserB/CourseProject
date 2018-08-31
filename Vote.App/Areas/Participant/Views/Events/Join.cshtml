@@ -40,7 +40,10 @@
             <div id="poll-section swans-bg">
                 <p class="text-center h5">Poll section</p>
                 <div class="text-center">
-                    <a asp-area="participant" asp-controller="polls" asp-action="vote" asp-route-id="@Model.EventId" class="btn btn-outline-info">Polls</a>
+                    <a asp-area="participant" asp-controller="polls" asp-action="vote" 
+                       asp-route-id="@Model.EventId" asp-route-code="@Model.EventCode" class="btn btn-outline-info">
+                        Polls
+                    </a>
                 </div>
             </div>
         </div>

@@ -1,0 +1,25 @@
+﻿
+<script>
+    function AddAnswer() {
+        var answersCount = document.getElementsByClassName("form-control answer").length + 1;
+
+        if (answersCount > 6) {
+            return;
+        }
+
+        var nameValue = 'answer' + answersCount;
+
+        var textarea = document.createElement('textarea');
+        textarea.setAttribute('id', nameValue);
+        textarea.setAttribute('name', 'answers');
+        textarea.setAttribute('rows', '1');
+        textarea.setAttribute('maxlength', '256');
+        textarea.setAttribute('class', 'form-control answer');
+
+        var div = document.createElement('div');
+        div.setAttribute('class', 'form-group ask-form answer');
+        div.appendChild(textarea);
+
+        document.getElementById('answers').appendChild(div);
+    }
+</script>

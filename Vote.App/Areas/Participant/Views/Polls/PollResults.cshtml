@@ -3,6 +3,23 @@
     ViewData["Title"] = "PollResults";
 }
 
-<div class="col-md-6 swans-bg">
-    @Html.DisplayFor(m => m, "PollResultModelCollection")
+<div class="col-md-6 ml-auto mr-auto height80 bright-bg">
+    <div class="row swans-bg">
+        <a asp-area="participant" asp-controller="events" asp-action="join" asp-route-code="@ViewData["BackUrl"]" class="bright m-3">
+            <i class="fa fa-arrow-left mr-2 mt-2"></i>
+        </a>
+        <span class="ml-auto mr-auto mt-2 pr-4">Poll results</span>
+    </div>
+
+    @{ if (!Model.Any())
+        {
+            <p class="h4 text-center">No active polls or results</p>
+        }
+        else
+        {
+            @Html.DisplayFor(m => m, "PollResultModelCollection")
+        }
+    }
+
+
 </div>

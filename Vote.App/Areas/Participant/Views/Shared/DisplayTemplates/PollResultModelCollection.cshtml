@@ -4,8 +4,9 @@
 
     foreach (var poll in Model)
     {
-        <p class="text-center swans-bg paradiso">@poll.PollQuestion </p>
+        <p class="text-center paradiso h5">@poll.PollQuestion </p>
         <hr class="style3" />
+        
         foreach (var answer in poll.PollAnswers)
         {
             <p>@answer.Content - @answer.Votes</p>
