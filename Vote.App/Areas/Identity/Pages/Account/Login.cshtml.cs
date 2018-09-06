@@ -35,6 +35,7 @@ namespace Vote.App.Areas.Identity.Pages.Account
         [TempData]
         public string ErrorMessage { get; set; }
 
+
         public async Task OnGetAsync(string returnUrl = null)
         {
             if (!string.IsNullOrEmpty(ErrorMessage))
@@ -44,7 +45,11 @@ namespace Vote.App.Areas.Identity.Pages.Account
 
             returnUrl = returnUrl ?? Url.Content("~/");
 
-            // Clear the existing external cookie to ensure a clean login process
+            if (this.signInManager.IsSignedIn(this.User))
+            {
+                return;
+            }
+           
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
             ExternalLogins = (await signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
