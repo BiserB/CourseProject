@@ -36,13 +36,11 @@ namespace Vote.App.Areas.Manager.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            var user = this.HttpContext.User;
-
             var model = this.service.GetEventModel();
 
             return View(model);
         }
-
+        
         [HttpPost]
         public async Task<IActionResult> Create(CreateEventBindingModel model)
         {
@@ -51,11 +49,23 @@ namespace Vote.App.Areas.Manager.Controllers
                 return this.View(model);
             }
 
+            if (!this.UserIsManager())
+            {
+                return LocalRedirect("/main/home/index");
+            }
+
             string userId = await this.GetCurrentUserId();
 
-            this.service.CreateEvent(model, userId);
+            var isCreated = this.service.CreateEvent(model, userId);
 
-            return LocalRedirect("/manager/activities/index");
+            if (isCreated)
+            {
+                return LocalRedirect("/manager/activities/index");
+            }
+
+            ViewData["Msg"] = "Event Code is occupied";
+
+            return this.View(model);            
         }
 
         [HttpPost]
@@ -69,13 +79,21 @@ namespace Vote.App.Areas.Manager.Controllers
             {
                 return RedirectToAction("Index");
             }
-            return LocalRedirect("/home/index");
+
+            return LocalRedirect("/main/home/index");
         }
 
         [HttpGet]
-        public IActionResult Display(int id)
+        public async Task<IActionResult> Display(int id)
         {
-            var dbEventModel = this.service.GetEventFullModel(id);
+            string userId = await this.GetCurrentUserId();
+
+            var dbEventModel = this.service.GetEventFullModel(id, userId);
+
+            if (dbEventModel == null)
+            {
+                return LocalRedirect("/manager/activities/index");
+            }
 
             return this.View(dbEventModel);
         }

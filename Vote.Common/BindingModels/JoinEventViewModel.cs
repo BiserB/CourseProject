@@ -15,6 +15,8 @@ namespace Vote.Common.BindingModels
 
         public string EventTitle { get; set; }
 
+        public string LogoFileName { get; set; }
+
         public ICollection<QuestionFullModel> Questions { get; set; }
 
         public QuestionBindingModel Question { get; set; }

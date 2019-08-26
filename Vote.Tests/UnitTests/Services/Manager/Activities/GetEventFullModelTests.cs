@@ -16,7 +16,9 @@ namespace Vote.Tests.UnitTests.Services.Manager.Activities
         [TestMethod]
         public void ReturnsEventFullModel()
         {
-            var model = this.service.GetEventFullModel(1);
+            var userId = "ABC";
+
+            var model = this.service.GetEventFullModel(1, userId);
 
             Assert.AreEqual(typeof(EventFullModel), model.GetType());
         }

@@ -38,6 +38,8 @@ namespace Vote.Entities
 
         public bool IsArchived { get; set; }
 
+        public bool IsReviewed { get; set; }
+
         public bool IsDeleted { get; set; }
 
         public List<Reply> Replies { get; set; }

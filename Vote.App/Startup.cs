@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Hosting.Internal;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -97,6 +98,8 @@ namespace Vote.App
             services.AddSignalR();
 
             RegisterServiceLayer(services);
+            
+            //services.AddSingleton<IHostingEnvironment>(new HostingEnvironment());
 
             services.AddMvc(options =>
             {
@@ -113,11 +116,11 @@ namespace Vote.App
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
                 app.InitialDbSeed();
-                app.TestDataSeed();
+                //app.TestDataSeed();
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Main/Home/Error");
                 app.UseHsts();
             }
 
@@ -139,12 +142,13 @@ namespace Vote.App
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                    name: "areas",
-                    template: "{area:exists}/{controller=Activities}/{action=Index}/{id?}");
+                    name: "main",
+                    template: "{area=Main}/{controller=Home}/{action=Index}/{id?}");
 
                 routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    name: "all",
+                    template: "{*url}",
+                    defaults: new {area="Main", controller="Home", action="Index" });
             });
         }
 
@@ -162,7 +166,7 @@ namespace Vote.App
 
             services.AddScoped<IManagerQuestionsService, ManagerQuestionsService>();
 
-            services.AddScoped<IParticipantRepliesService, ParticipantRepliesService>();
+            services.AddScoped<IParticipantRepliesService, ParticipantRepliesService>();            
         }
     }
 }

@@ -24,5 +24,7 @@ namespace Vote.Common.BindingModels
         public DateTime EndDate { get; set; }
 
         public bool AnonymousAllowed { get; set; }
+
+        public bool IsModerated { get; set; }
     }
 }

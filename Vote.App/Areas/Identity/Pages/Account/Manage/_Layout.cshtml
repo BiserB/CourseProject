@@ -1,0 +1,81 @@
+﻿@inject SignInManager<User> SignInManager
+@{
+    var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="~/favicon-32x32.png">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/lib/fontello/css/fontello.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+</head>
+<body>
+    <wrapper class="d-flex flex-column">
+        <partial name="_CookieConsentPartial" />
+        <header id="top-nav">
+            <nav class="navbar navbar-expand-lg navbar-light swans-bg">
+                <a class="navbar-brand" href="/main/home/index">
+                    <img src="~/images/VoteLogoFullFinal.svg" height="36" alt="VoteLogo" />
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarManage" aria-controls="navbarManage" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarManage">
+                    <div class="navbar-nav">
+                        <a asp-page="./Index" class="nav-item nav-link">Profile</a>
+                        <a asp-page="./ChangePassword" id="change-password" class="nav-item nav-link">Password</a>
+                        @if (hasExternalLogins)
+                        {
+                            <a asp-page="./ExternalLogins" id="external-login" class="nav-item nav-link text-nowrap">External logins</a>
+                        }
+                        <a asp-page="./TwoFactorAuthentication" class="nav-item nav-link text-nowrap">Two-factor auth</a>
+                        <a asp-page="./PersonalData" class="nav-item nav-link text-nowrap">Personal data</a>
+                    </div>
+                    <div class="ml-auto">
+                        <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="/main/home/index" method="post" id="logoutForm">
+                            <button type="submit" class="dropdown-item" title="Logout">Logout</button>
+                        </form>
+                    </div>
+                </div>
+                
+            </nav>            
+        </header>
+       
+
+        <main class="reseda-bg">
+            <div class="container">
+                @RenderBody()
+            </div>
+        </main>
+
+        <footer>
+            <nav class="navbar navbar-expand flex-md-row flex-column" id="bottom-nav">
+                <ul class="navbar-nav mr-md-auto">
+                    <li class="nav-item">
+                        <a class="nav-link bright" href="/main/home/about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-nowrap bright" href="#top-nav">Back to top</a>
+                    </li>
+                </ul>
+                <div class="ml-md-auto">
+                    <span>Copyright &copy; 2018 by <a class="bright" href="/main/home/index">Vote.Inc</a> |</span>
+                    <span>Coded by <a class="bright" href="https://github.com/BiserB/CourseProject">B.B.</a></span>
+                </div>
+            </nav>
+        </footer>
+    </wrapper>
+
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/browser/signalr.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

@@ -89,5 +89,41 @@ namespace Vote.Services.Manager
 
             return restoreQuestionModel;
         }
+
+        public RestoreQuestionModel Review(int id, int eventId, string userId)
+        {
+            var question = this.db.Questions
+                .FirstOrDefault(q => q.Id == id && q.EventId == eventId);
+
+            if (question == null)
+            {
+                throw new NullReferenceException();
+            }
+
+            var isAuthorized = this.db.Events.Any(e => e.Id == eventId && e.CreatorId == userId);
+
+            if (!isAuthorized)
+            {
+                throw new NullReferenceException();
+            }
+
+            question.IsReviewed = true;
+
+            this.db.SaveChanges();
+
+            var replies = this.db.Replies.Where(r => r.QuestionId == id)
+                                           .Select(r => new ReplyViewModel()
+                                           {
+                                               Content = r.Content,
+                                               AuthorName = r.AuthorName
+                                           })
+                                           .ToList();
+
+            var reviewedQuestion = this.mapper.Map<RestoreQuestionModel>(question);
+
+            reviewedQuestion.Replies = replies;
+
+            return reviewedQuestion;
+        }
     }
 }

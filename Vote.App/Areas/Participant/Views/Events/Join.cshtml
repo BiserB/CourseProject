@@ -5,7 +5,15 @@
 
 <div class="row">
     <div class="col-md-6 ask-section">
-        <h1 class="h4 mt-md-2"><strong>@Model.EventTitle</strong> <span class="code-mutted float-right">@Model.EventCode</span></h1>
+        <div class="row mt-1">
+            <div class="col-4">
+                <img id="logo-image" src="~/uploads/@Model.LogoFileName" />
+            </div>
+            <div class="col-8">
+                <h4><span>@Model.EventTitle</span> <span class="code-mutted float-right"># @Model.EventCode</span></h4>
+            </div>
+        </div>        
+        <hr class="style5" />
         <span>Type your question</span>
         <div class="container">
             <form asp-area="participant" asp-controller="events" asp-action="ask" class="form" method="post">
@@ -40,7 +48,7 @@
             <div id="poll-section swans-bg">
                 <p class="text-center h5">Poll section</p>
                 <div class="text-center">
-                    <a asp-area="participant" asp-controller="polls" asp-action="vote" 
+                    <a asp-area="participant" asp-controller="polls" asp-action="vote"
                        asp-route-id="@Model.EventId" asp-route-code="@Model.EventCode" class="btn btn-outline-info">
                         Polls
                     </a>
@@ -78,7 +86,7 @@
                                         }
                                     </span>
                                     <a data-toggle="collapse" href="#postReply@(question.Id)" role="button" aria-expanded="false" aria-controls="postReply@(question.Id)">
-                                        <i class="fa fa-reply"></i>
+                                        <i class="icon-reply"></i>
                                     </a>
                                 </span>
                             </div>

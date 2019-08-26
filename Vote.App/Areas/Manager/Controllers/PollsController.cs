@@ -48,7 +48,7 @@ namespace Vote.App.Areas.Manager.Controllers
 
             if (!this.UserIsManager())
             {
-                return LocalRedirect("/home/index");
+                return LocalRedirect("/main/home/index");
             }
 
             var userId = await this.GetCurrentUserId();
@@ -57,7 +57,7 @@ namespace Vote.App.Areas.Manager.Controllers
 
             if (!pollCreated)
             {
-                return LocalRedirect("/home/index");
+                return LocalRedirect("/main/home/index");
             }
 
             return RedirectToAction("Index", new { id = model.EventId });
@@ -70,7 +70,7 @@ namespace Vote.App.Areas.Manager.Controllers
 
             if (pollDetailsModel == null)
             {
-                return LocalRedirect("/home/index");
+                return LocalRedirect("/main/home/index");
             }
 
             return this.View(pollDetailsModel);
@@ -93,7 +93,7 @@ namespace Vote.App.Areas.Manager.Controllers
 
             if (!isDeleted)
             {
-                return LocalRedirect("/home/index");
+                return LocalRedirect("/main/home/index");
             }
 
             return this.RedirectToAction("Index", new { id = eventId });

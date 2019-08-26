@@ -5,11 +5,11 @@ namespace Vote.Services.Manager.Interfaces
 {
     public interface IManagerActivitiesService
     {
-        EventFullModel GetEventFullModel(int id);
+        EventFullModel GetEventFullModel(int id, string userId);
 
         AllEventsModel GetAllEventsForUser(string userId);
 
-        void CreateEvent(CreateEventBindingModel model, string userId);
+        bool CreateEvent(CreateEventBindingModel model, string userId);
 
         CreateEventBindingModel GetEventModel();
 

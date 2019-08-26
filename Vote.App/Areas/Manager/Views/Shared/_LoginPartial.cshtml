@@ -17,7 +17,7 @@
                 <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" class="dropdown-item">Profile</a>
                 <div class="dropdown-divider alert-dark"></div>
                 <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post" id="logoutForm">
-                    <button type="submit" class="dropdown-item" title="Logout">Logout</button>
+                    <button type="submit" class="dropdown-item paradiso" title="Logout">Logout</button>
                 </form>
             </div>
         </li>
@@ -27,6 +27,6 @@
 else
 {
     <div class="navbar-nav navbar-right">
-        <a class="nav-link" asp-area="Identity" asp-page="/Account/Login"><span class="h4">Login</span></a>
+        <a class="nav-link bright h4" asp-area="Identity" asp-page="/Account/Login">Login</a>
     </div>
 }

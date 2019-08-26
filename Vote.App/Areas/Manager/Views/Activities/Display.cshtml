@@ -6,40 +6,109 @@
 
 <div class="row height80">
 
-    <div class="col-md-6 bright-bg">
-        <div class="row paradiso-bg swans">
-            <h4 class="ml-auto mr-auto">Incoming: </h4>
-            <input type="hidden" id="EventCode" value="@Model.EventCode">
-        </div>
-        <div class="row">
-            <div id="posts" class="questions">
-                @{
-                    if (!Model.ActiveQuestions.Any())
-                    {
-                        <div id="no-questions">
-                            <p class="h5 text-muted text-center m-5">No questions for review</p>
-                            <p class="h5 text-muted text-center m-5">Code for event: @Model.EventCode</p>
-                        </div>
-                    }
-                    else
-                    {
-                        @Html.DisplayFor(m => m.ActiveQuestions, "QuestionFullModelCollection")
-                    }
-                }
+    @{
+        if (Model.IsModerated)
+        {
+            <div class="col-md-4 bright-bg">
+                <div class="row paradiso-bg swans">
+                    <h4 class="ml-auto mr-auto">Incoming: </h4>
+                    <input type="hidden" id="EventCode" value="@Model.EventCode">
+                </div>
+                <div class="row">
+                    <div id="posts" class="questions">
+                        @{
+                            if (!Model.IncomingQuestions.Any())
+                            {
+                                <div id="no-questions">
+                                    <p class="h5 text-muted text-center m-5">No questions for review</p>
+                                    <p class="h5 text-muted text-center m-5">Code for event: @Model.EventCode</p>
+                                </div>
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(m => m.IncomingQuestions, "IncomingQuestions")
+                            }
+                        }
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
 
-    <div class="col-md-6 swans-bg border-left">
-        <div class="row paradiso-bg swans">
-            <h4 class="ml-auto mr-auto">Archived: </h4>
-        </div>
-        <div class="row">
-            <div id="posts" class="questions">
-                @Html.DisplayFor(m => m.ArchivedQuestions, "ArchivedQuestions")
+            <div class="col-md-4 bright-bg border-left">
+                <div class="row paradiso-bg swans">
+                    <h4 class="ml-auto mr-auto">Reviewed: </h4>
+                    <input type="hidden" id="EventCode" value="@Model.EventCode">
+                </div>
+                <div class="row">
+                    <div id="posts" class="questions">
+                        @{
+                            if (!Model.ReviewedQuestions.Any())
+                            {
+                                <div id="no-questions">
+                                    <p class="h5 text-muted text-center m-5">No questions for review</p>
+                                    <p class="h5 text-muted text-center m-5">Code for event: @Model.EventCode</p>
+                                </div>
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(m => m.ReviewedQuestions, "ReviewedQuestions")
+                            }
+                        }
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
+
+            <div class="col-md-4 swans-bg border-left">
+                <div class="row paradiso-bg swans">
+                    <h4 class="ml-auto mr-auto">Archived: </h4>
+                </div>
+                <div class="row">
+                    <div id="posts" class="questions">
+                        @Html.DisplayFor(m => m.ArchivedQuestions, "ArchivedQuestions")
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="col-md-6 bright-bg">
+                <div class="row paradiso-bg swans">
+                    <h4 class="ml-auto mr-auto">Incoming: </h4>
+                    <input type="hidden" id="EventCode" value="@Model.EventCode">
+                </div>
+                <div class="row">
+                    <div id="posts" class="questions">
+                        @{
+                            if (!Model.IncomingQuestions.Any())
+                            {
+                                <div id="no-questions">
+                                    <p class="h5 text-muted text-center m-5">No questions for review</p>
+                                    <p class="h5 text-muted text-center m-5">Code for event: @Model.EventCode</p>
+                                </div>
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(m => m.IncomingQuestions, "IncomingQuestions")
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 swans-bg border-left">
+                <div class="row paradiso-bg swans">
+                    <h4 class="ml-auto mr-auto">Archived: </h4>
+                </div>
+                <div class="row">
+                    <div id="posts" class="questions">
+                        @Html.DisplayFor(m => m.ArchivedQuestions, "ArchivedQuestions")
+                    </div>
+                </div>
+            </div>
+        }
+    }
+
+
+
 </div>
 
 @section Scripts {
@@ -52,7 +121,7 @@
                 .withUrl("/questions")
                 .build();
 
-            connection.on("Callback", (questionContent, publishedOn, authorName, id, replies) => {
+            connection.on("ForManager", (questionContent, publishedOn, authorName, id, replies) => {
 
                 var message = document.getElementById('no-questions');
 
@@ -64,17 +133,18 @@
                     '<div class="mr-3">' + questionContent + '</div>',
                     '<div class="row ml-0"><span class="content-mutted">' + publishedOn + '</span>',
                     '<span class="ml-3">' + authorName + '</span>',
-                    '<div class="ml-auto mr-5"> <div class="row"> ',
-                    '<form action="/manager/questions/delete" method="post" class="mx-1">',
+                    '<div class="row ml-auto mr-4">',
+                    '<form action="/manager/questions/review" method="post" class="mx-1">',
                     '<input value=' + id + ' type="hidden" name="Id" />',
                     '<input value="@Model.Id" type="hidden" name="eventId" />',
-                    '<input value="@Model.EventCode" type="hidden" name="eventCode">',
-                    '<input type="submit" class="btn btn-sm btn-outline-info mx-1" value="Arc" formaction="/manager/questions/archive" />',
-                    '<input type="submit" class="btn btn-sm btn-outline-info" value="Del" />',
-                    '</form></div></div></div> <hr class="style5" />'
+                    '<input value="@Model.EventCode" type="hidden" name="EventCode">',
+                    '<input type="submit" class="btn btn-sm btn-outline-info" value="Arc" formaction="/manager/questions/archive" />',
+                    '<input type="submit" class="btn btn-sm btn-outline-info mx-1" value="Del" formaction="/manager/questions/delete" />',
+                    '<input type="submit" class="btn btn-sm btn-outline-info" value="Rev" />',
+                    '</form></div></div> <hr class="style5" />'
                 ].join('');
 
-                var identificator = "question";
+                var identificator = "question" + id;
 
                 var div = document.createElement('div');
 

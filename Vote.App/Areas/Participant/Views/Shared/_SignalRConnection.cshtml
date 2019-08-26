@@ -5,7 +5,7 @@
             .withUrl("/questions")
             .build();
 
-        connection.on("Callback", (questionContent, publishedOn, authorName, id) => {
+        connection.on("Callback", (questionContent, publishedOn, authorName, id, eventId, eventCode) => {
 
             var postHtml = [
                 '<div class="mr-3">' + questionContent + '</div>',
@@ -14,7 +14,7 @@
                 '<span class="ml-auto mr-3">',
                 '<span id="button' + id + '"></span>',
                 '<a data-toggle="collapse" href="#postReply' + id + '" role="button" aria-expanded="false"',
-                'aria-controls="postReply' + id + '" ><i class="fa fa-reply"></i></a></span></div>',
+                'aria-controls="postReply' + id + '" ><i class="icon-reply"></i></a></span></div>',
 
                 '<div class="collapse" id="postReply' + id + '"><div class="reply-form">',
                 '<form method="post" class="mr-3 ml-auto" action="/participant/replies/post">',
@@ -24,8 +24,8 @@
                 ' data-val-length-min="3" data-val-required="The ReplyContent field is required." id="Reply_ReplyContent"></textarea>',
                 '</div><div class="row mb-1">',
                 '<input name="questionId" value="' + id + '" data-val="true" data-val-required="The QuestionId field is required." id="Reply_QuestionId" type="hidden">',
-                '<input data-val="true" data-val-required="The EventId field is required." id="EventId" name="EventId" value="28" type="hidden">',
-                '<input id="EventCode" name="EventCode" value="simple" type="hidden">',
+                '<input data-val="true" data-val-required="The EventId field is required." id="EventId' + eventId + '" name="EventId" value="' + eventId + '" type="hidden">',
+                '<input id="EventCode' + eventCode + '" name="EventCode" value="' + eventCode + '" type="hidden">',
                 '<label class="sr-only" for="Reply_ReplyAuthor">Display name</label>',
                 '<input name="replyAuthor" class="author-reply border-0 ml-4 pl-2 paradiso swans-bg" placeholder="Anonymous" data-val="true"',
                 ' data-val-length=" Display name must be at least 3 and at max 32 characters long." data-val-length-max="32" data-val-length-min="3"',
@@ -50,7 +50,7 @@
 
             document.getElementById('posts').appendChild(div);
 
-        });
+        });        
 
         connection.on("AddReply", (reply) => {
 
@@ -83,7 +83,9 @@
         connection.on("DeleteQuestion", (questionId) => {
             var identifictor = "question" + questionId;
             var questionElement = document.getElementById(identifictor);
-            document.getElementById('posts').removeChild(questionElement);
+            if (questionElement != null) {
+                document.getElementById('posts').removeChild(questionElement);
+            }            
         });
 
         await connection.start();

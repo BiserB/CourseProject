@@ -41,6 +41,8 @@ namespace Vote.Entities
 
         public bool IsDeleted { get; set; }
 
+        public bool IsModerated { get; set; }
+
         public List<Question> Questions { get; set; }
 
         public List<Poll> Polls { get; set; }

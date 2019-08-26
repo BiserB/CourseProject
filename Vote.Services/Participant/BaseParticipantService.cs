@@ -18,14 +18,14 @@ namespace Vote.Services.Participant
         }
 
         protected EventViewModel GetDbEventByCode(string code)
-        {
-            var today = DateTime.Today;
+        {    
+            var dbEvent = this.db.Events.FirstOrDefault(e => e.Code == code && e.IsDeleted == false);
 
-            var dbEvent = this.db.Events.FirstOrDefault(e => e.Code == code &&
-                                                             e.EndDate >= today &&
-                                                             e.IsDeleted == false &&
-                                                             e.IsClosed == false);
-
+            if (dbEvent == null)
+            {
+                return null;
+            }
+                       
             var model = this.mapper.Map<EventViewModel>(dbEvent);
 
             return model;

@@ -1,4 +1,6 @@
-﻿namespace Vote.Common
+﻿using System.Collections.Generic;
+
+namespace Vote.Common
 {
     public static class VoteConstants
     {
@@ -21,5 +23,11 @@
         public const string JsonPollAnswers = @"Vote.Common\FileRepo\PollAnswers.json";
 
         public const string PathCorrection = @"..\..\..\..";
+
+        public const string ManagerLogoFolder = @"ManagerLogo";
+
+        public const int LogoLength = 36864;
+
+        public static readonly IReadOnlyList<string> LogoExtensions = new List<string>(){ ".jpg"};
     }
 }

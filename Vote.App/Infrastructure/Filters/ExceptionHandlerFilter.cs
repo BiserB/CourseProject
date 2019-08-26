@@ -31,7 +31,7 @@ namespace Vote.App.Infrastructure.Filters
 
                 this.logger.LogToFile(VoteConstants.VoteLogPath, LogLevel.Error, exceptionMsg);
 
-                context.Result = new LocalRedirectResult("/home/index");
+                context.Result = new LocalRedirectResult("/main/home/index");
             }
         }
     }

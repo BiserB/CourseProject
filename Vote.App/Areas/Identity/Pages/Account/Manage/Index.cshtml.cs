@@ -1,12 +1,17 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
+using System.IO;
+using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Vote.App.Areas.Identity.Models;
+using Vote.Common;
 using Vote.Entities;
+using Vote.Services.Manager.Interfaces;
 
 namespace Vote.App.Areas.Identity.Pages.Account.Manage
 {
@@ -26,7 +31,11 @@ namespace Vote.App.Areas.Identity.Pages.Account.Manage
             this.emailSender = emailSender;
         }
 
+        public string UserId { get; private set; }
+
         public string Username { get; set; }
+
+        public string LogoFileName { get; set; }
 
         public bool IsEmailConfirmed { get; set; }
 
@@ -35,7 +44,7 @@ namespace Vote.App.Areas.Identity.Pages.Account.Manage
 
         [BindProperty]
         public IndexInputModel Input { get; set; }
-
+        
         public async Task<IActionResult> OnGetAsync()
         {
             var user = await userManager.GetUserAsync(User);
@@ -44,10 +53,20 @@ namespace Vote.App.Areas.Identity.Pages.Account.Manage
                 return NotFound($"Unable to load user with ID '{userManager.GetUserId(User)}'.");
             }
 
+            this.UserId = user.Id;
             var userName = await userManager.GetUserNameAsync(user);
             var email = await userManager.GetEmailAsync(user);
             var organization = user.Organization;
             var phoneNumber = await userManager.GetPhoneNumberAsync(user);
+
+            if (user.HasLogo)
+            {
+                this.LogoFileName = user.Id + ".jpg";
+            }
+            else
+            {
+                this.LogoFileName = "DefaultLogo" + ".jpg";
+            }            
 
             Username = userName;
 
@@ -139,6 +158,6 @@ namespace Vote.App.Areas.Identity.Pages.Account.Manage
 
             StatusMessage = "Verification email sent. Please check your email.";
             return RedirectToPage();
-        }
+        }                
     }
 }

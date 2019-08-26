@@ -14,7 +14,7 @@
                 <div class="mr-3">
                     @question.Content
                 </div>
-                <div class="row ml-0">
+                <div class="row mx-0">
                     <span class="content-mutted">@question.PublishedOn</span>
                     <span class="ml-3">@question.AuthorName</span>
                     <div class="ml-auto mr-5">
@@ -22,14 +22,14 @@
                             <form action="/manager/questions/delete" method="post" class="mx-1">
                                 <input value="@question.Id" type="hidden" name="Id" />
                                 <input value="@question.EventId" type="hidden" name="eventId" />
-                                <input value="@question.EventCode" type="hidden" name="eventCode" />
+                                <input value="@question.EventCode" type="hidden" name="EventCode" />
                                 <input type="submit" class="btn btn-sm btn-outline-info" value="Restore" formaction="/manager/questions/restore" />
                                 <input type="submit" class="btn btn-sm btn-outline-info" value="Del" />
                             </form>
                         </div>
                     </div>
                 </div>
-                <hr class="style5" />
+                <hr class="style6" />
             </div>
         }
     }

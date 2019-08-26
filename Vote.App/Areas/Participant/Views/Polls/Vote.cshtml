@@ -9,8 +9,8 @@
 
         <p> @Model.PollQuestion </p>
         <form asp-area="participant" asp-controller="polls" asp-action="vote" method="post" class="form">
-            <input type="hidden" name="pollId" value="@Model.PollId">
-            <input type="hidden" name="eventCode" value="@Model.EventCode">
+            <input type="hidden" name="PollId" value="@Model.PollId">
+            <input type="hidden" name="EventCode" value="@Model.EventCode">
             @foreach (var answer in Model.PollAnswers)
             {
                 <hr />

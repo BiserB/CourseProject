@@ -35,10 +35,11 @@ namespace Vote.Services.Manager
             return newCode;
         }
 
-        protected Event GetDbEvent(int id)
+        protected Event GetDbEvent(int id, string userId)
         {
             var dbEvent = this.db.Events
                               .FirstOrDefault(e => e.Id == id &&
+                                                   e.CreatorId == userId &&
                                                    e.IsDeleted == false);
 
             return dbEvent;

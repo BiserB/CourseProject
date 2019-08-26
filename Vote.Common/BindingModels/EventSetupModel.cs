@@ -29,6 +29,6 @@ namespace Vote.Common.BindingModels
 
         public bool AnonymousAllowed { get; set; }
 
-        public bool IsDeleted { get; set; }
+        public bool IsModerated{ get; set; }
     }
 }

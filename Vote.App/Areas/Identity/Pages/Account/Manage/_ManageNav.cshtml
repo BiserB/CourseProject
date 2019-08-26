@@ -2,13 +2,22 @@
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }
-<ul class="nav nav-pills nav-stacked">
-    <li class="@ManageNavPages.IndexNavClass(ViewContext)"><a asp-page="./Index">Profile</a></li>
-    <li class="@ManageNavPages.ChangePasswordNavClass(ViewContext)"><a id="change-password" asp-page="./ChangePassword">Password</a></li>
-    @if (hasExternalLogins)
-    {
-        <li class="@ManageNavPages.ExternalLoginsNavClass(ViewContext)"><a id="external-login" asp-page="./ExternalLogins">External logins</a></li>
-    }
-    <li class="@ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext)"><a asp-page="./TwoFactorAuthentication">Two-factor authentication</a></li>
-    <li class="@ManageNavPages.PersonalDataNavClass(ViewContext)"><a asp-page="./PersonalData">Personal data</a></li>
-</ul>
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarManage" aria-controls="navbarManage" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarManage">
+        <div class="navbar-nav">            
+            <a asp-page="./Index" class="nav-item nav-link">Profile</a>
+            <a asp-page="./ChangePassword" id="change-password" class="nav-item nav-link">Password</a>
+            @if (hasExternalLogins)
+            {
+                <a asp-page="./ExternalLogins" id="external-login" class="nav-item nav-link text-nowrap">External logins</a>
+            }
+            <a asp-page="./TwoFactorAuthentication" class="nav-item nav-link text-nowrap">Two-factor auth</a>
+            <a asp-page="./PersonalData" class="nav-item nav-link text-nowrap">Personal data</a>
+        </div>
+    </div>
+</nav>

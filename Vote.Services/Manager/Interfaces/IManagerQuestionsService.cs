@@ -8,6 +8,8 @@ namespace Vote.Services.Manager.Interfaces
 
         bool Archive(int id, int eventId, string userId);
 
+        RestoreQuestionModel Review(int id, int eventId, string userId);
+
         RestoreQuestionModel Restore(int id);
     }
 }

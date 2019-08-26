@@ -1,4 +1,7 @@
-﻿using Vote.Common.BindingModels;
+﻿using Microsoft.AspNetCore.Http;
+using System.Threading.Tasks;
+using Vote.Common.BindingModels;
+using Vote.Entities;
 
 namespace Vote.Services.Manager.Interfaces
 {
@@ -6,6 +9,10 @@ namespace Vote.Services.Manager.Interfaces
     {
         EventSetupModel GetEventSetupModel(int eventId, string userId);
 
-        bool SaveEventChanges(EventSetupModel model, string userId);
+        Event GetEvent(EventSetupModel model, string userId);
+
+        bool SaveEventChanges(EventSetupModel model, Event dbEvent);
+
+        Task<bool> UploadLogo(IFormFile file, string userId);
     }
 }

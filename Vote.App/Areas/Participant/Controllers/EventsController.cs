@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using System;
 using System.Threading.Tasks;
 using Vote.App.Infrastructure.Hubs;
 using Vote.Common.BindingModels;
@@ -20,7 +21,7 @@ namespace Vote.App.Areas.Participant.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Join(string code)
+        public IActionResult Join(string code)
         {
             if (code == null)
             {
@@ -31,7 +32,28 @@ namespace Vote.App.Areas.Participant.Controllers
 
             if (dbEvent == null)
             {
-                return LocalRedirect("~/NoResult");
+                ViewData["Code"] = code;
+                ViewData["Msg"] = $"No such event";
+
+                return this.View("Result");
+            }
+
+            if (dbEvent.IsClosed)
+            {
+                ViewData["Code"] = code;
+                ViewData["Msg"] = $"It is not active";
+
+                return this.View("Result");
+            }
+
+            var today = DateTime.Today;
+
+            if (dbEvent.EndDate < today)
+            {
+                ViewData["Code"] = code;
+                ViewData["Msg"] = $"It is a past event.";
+
+                return this.View("Result");
             }
 
             var joinModel = this.service.CreateEventModel(dbEvent);
@@ -47,17 +69,24 @@ namespace Vote.App.Areas.Participant.Controllers
                 return RedirectToAction("Join", new { code = model.EventCode });
             }
 
-            var q = this.service.CreateQuestion(model);
+            var qn = this.service.CreateQuestion(model);
 
-            if (q == null)
+            if (qn == null)
             {
                 return RedirectToAction("Join", new { code = model.EventCode });
             }
 
-            this.service.SaveQuestion(q);
+            this.service.SaveQuestion(qn);
+
+            if (qn.IsReviewed)
+            {
+                await this.hubContext.Clients.Group(model.EventCode)
+                                .SendAsync("Callback", qn.Content, qn.PublishedOn.ToShortDateString(), qn.AuthorName, qn.Id, model.EventId, model.EventCode);
+            }
 
             await this.hubContext.Clients.Group(model.EventCode)
-                                 .SendAsync("Callback", q.Content, q.PublishedOn.ToShortDateString(), q.AuthorName, q.Id);
+                                .SendAsync("ForManager", qn.Content, qn.PublishedOn.ToShortDateString(), qn.AuthorName, qn.Id);
+
 
             return RedirectToAction("Join", new { code = model.EventCode });
         }

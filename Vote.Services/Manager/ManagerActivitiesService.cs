@@ -49,15 +49,24 @@ namespace Vote.Services.Manager
             return dbEvents;
         }
 
-        public void CreateEvent(CreateEventBindingModel model, string userId)
-        {
+        public bool CreateEvent(CreateEventBindingModel model, string userId)
+        {   
             var newEvent = this.mapper.Map<Event>(model);
 
-            newEvent.CreatorId = userId;
+            var codeIsOccupied = this.db.Events.Any(e => e.Code == model.Code && e.IsDeleted == false);
 
+            if (codeIsOccupied)
+            {
+                return false;
+            }
+
+            newEvent.CreatorId = userId;
+            
             this.db.Events.Add(newEvent);
 
             this.db.SaveChanges();
+
+            return true;
         }
 
         public CreateEventBindingModel GetEventModel()
@@ -74,10 +83,7 @@ namespace Vote.Services.Manager
 
         public bool DeleteEvent(int id, string userId)
         {
-            var eventToDelete = this.db.Events
-                .FirstOrDefault(e => e.Id == id &&
-                                     e.CreatorId == userId &&
-                                     e.IsDeleted == false);
+            var eventToDelete = this.GetDbEvent(id, userId);
 
             if (eventToDelete == null)
             {
@@ -91,10 +97,15 @@ namespace Vote.Services.Manager
             return true;
         }
 
-        public EventFullModel GetEventFullModel(int id)
+        public EventFullModel GetEventFullModel(int id, string userId)
         {
-            var dbEvent = this.GetDbEvent(id);
+            var dbEvent = this.GetDbEvent(id, userId);
 
+            if (dbEvent == null)
+            {
+                return null;
+            }
+            
             var questions = this.db.Questions
                                    .Where(q => q.EventId == dbEvent.Id &&
                                                q.IsDeleted == false)
@@ -107,6 +118,7 @@ namespace Vote.Services.Manager
                                        EventId = dbEvent.Id,
                                        EventCode = dbEvent.Code,
                                        IsArchived = q.IsArchived,
+                                       IsReviewed = q.IsReviewed,
                                        Upvotes = q.Upvotes,
                                        Doqwnvotes = q.Downvotes,
                                        Replies = q.Replies
@@ -120,7 +132,17 @@ namespace Vote.Services.Manager
 
             var eventModel = this.mapper.Map<EventFullModel>(dbEvent);
 
-            eventModel.ActiveQuestions = questions.Where(q => q.IsArchived == false).ToList();
+            if (dbEvent.IsModerated)
+            {
+                eventModel.IncomingQuestions = questions.Where(q => q.IsArchived == false && q.IsReviewed == false).ToList();
+
+                eventModel.ReviewedQuestions = questions.Where(q => q.IsArchived == false && q.IsReviewed == true).ToList();                
+            }
+            else
+            {
+                eventModel.IncomingQuestions = questions.Where(q => q.IsArchived == false).ToList();
+            }
+
             eventModel.ArchivedQuestions = questions.Where(q => q.IsArchived == true).ToList();
 
             return eventModel;

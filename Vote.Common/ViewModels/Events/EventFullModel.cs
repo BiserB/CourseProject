@@ -7,7 +7,8 @@ namespace Vote.Common.ViewModels.Events
     {
         public EventFullModel()
         {
-            this.ActiveQuestions = new List<QuestionFullModel>();
+            this.IncomingQuestions = new List<QuestionFullModel>();
+            this.ReviewedQuestions = new List<QuestionFullModel>();
             this.ArchivedQuestions = new List<QuestionFullModel>();
         }
 
@@ -25,7 +26,11 @@ namespace Vote.Common.ViewModels.Events
 
         public bool AnonymousAllowed { get; set; }
 
-        public List<QuestionFullModel> ActiveQuestions { get; set; }
+        public bool IsModerated { get; set; }
+
+        public List<QuestionFullModel> IncomingQuestions { get; set; }
+
+        public List<QuestionFullModel> ReviewedQuestions { get; set; }
 
         public List<QuestionFullModel> ArchivedQuestions { get; set; }
     }

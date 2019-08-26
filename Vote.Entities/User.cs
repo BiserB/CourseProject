@@ -14,6 +14,8 @@ namespace Vote.Entities
 
         public string Language { get; set; }
 
+        public bool HasLogo { get; set; }
+
         public bool AnalyticalCookiesAllowed { get; set; }
 
         public bool NewsletterSubscription { get; set; }

@@ -10,7 +10,7 @@ namespace Vote.App.Areas.Manager.Controllers
 {
     public class QuestionsController : BaseManagerController
     {
-        private const string LocalUrl = "/home/index";
+        private const string LocalUrl = "/main/home/index";
         private readonly IManagerQuestionsService service;
         private readonly IHubContext<VoteHub> hubContext;
 
@@ -63,20 +63,44 @@ namespace Vote.App.Areas.Manager.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Restore(int id, int eventId, string EventCode)
+        public async Task<IActionResult> Restore(int id, int eventId, string eventCode)
         {
             var q = this.service.Restore(id);
 
-            await this.hubContext.Clients.Group(EventCode)
-                                 .SendAsync("Callback", q.Content, q.PublishedOn, q.AuthorName, q.Id);
+            await this.hubContext.Clients.Group(eventCode)
+                                 .SendAsync("Callback", q.Content, q.PublishedOn, q.AuthorName, q.Id, eventId, eventCode);
 
             foreach (var reply in q.Replies)
             {
-                await this.hubContext.Clients.Group(EventCode)
+                await this.hubContext.Clients.Group(eventCode)
                                  .SendAsync("AddReply", new { questionId = q.Id, replyContent = reply.Content, replyAuthor = reply.AuthorName });
             }
 
             return RedirectToAction("Display", controllerName: "Activities", routeValues: new { Id = eventId });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Review(int id, int eventId, string eventCode)
+        {
+            var userId = await this.GetCurrentUserId();
+
+            var qn = this.service.Review(id, eventId, userId);
+            
+            if (qn != null)
+            {
+                await this.hubContext.Clients.Group(eventCode)
+                                 .SendAsync("Callback", qn.Content, qn.PublishedOn, qn.AuthorName, qn.Id, eventId, eventCode);
+
+                foreach (var reply in qn.Replies)
+                {
+                    await this.hubContext.Clients.Group(eventCode)
+                                     .SendAsync("AddReply", new { questionId = qn.Id, replyContent = reply.Content, replyAuthor = reply.AuthorName });
+                }
+
+                return RedirectToAction("Display", controllerName: "Activities", routeValues: new { Id = eventId });
+            }
+
+            return LocalRedirect(LocalUrl);
         }
     }
 }

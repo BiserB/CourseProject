@@ -23,6 +23,8 @@ namespace Vote.Common.ViewModels.Events
 
         public bool IsArchived { get; set; }
 
+        public bool IsReviewed { get; set; }
+
         public int Upvotes { get; set; }
 
         public int Doqwnvotes { get; set; }

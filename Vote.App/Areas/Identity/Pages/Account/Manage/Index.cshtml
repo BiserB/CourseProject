@@ -1,13 +1,81 @@
 ﻿@page
 @model IndexModel
 @{
+    Layout = "/Areas/Identity/Pages/_Layout.cshtml";
     ViewData["Title"] = "Profile";
 }
 
-<h4>@ViewData["Title"]</h4>
-@Html.Partial("_StatusMessage", Model.StatusMessage)
+
+
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-sm-6">
+        <div class="col-md-10 col-lg-8 mx-auto">
+            <h4 class="text-center">@ViewData["Title"]</h4>
+            <form id="profile-form" method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Username"></label>
+                    <input asp-for="Username" class="form-control font-weight-bold" disabled />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Email"></label>
+                    @if (Model.IsEmailConfirmed)
+                    {
+                        <div class="input-group">
+                            <input asp-for="Input.Email" class="form-control" />
+                            <span class="input-group-addon" aria-hidden="true"><span class="icon-ok-squared text-success"></span></span>
+                        </div>
+                    }
+                    else
+                    {
+                        <input asp-for="Input.Email" class="form-control" />
+                        <button id="email-verification" type="submit" asp-page-handler="SendVerificationEmail" class="btn btn-link bright">Send verification email</button>
+                    }
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Organization"></label>
+                    <input asp-for="Input.Organization" class="form-control" />
+                    <span asp-validation-for="Input.Organization" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.PhoneNumber"></label>
+                    <input asp-for="Input.PhoneNumber" class="form-control" />
+                    <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="mt-5 text-center ">
+                    <button type="submit" class="btn btn-default">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-sm-6">
+        <div class="col-md-10 col-lg-8 mx-auto">
+            <div class="my-5">
+                <h5>Current logo:</h5>
+                <hr class="style7 bright"/>
+                <img src="~/uploads/@Model.LogoFileName" />
+            </div>
+            <span class="bg-warning">@TempData["Msg"]</span>
+            <form method="post" enctype="multipart/form-data" asp-area="manager" asp-controller="settings" asp-action="uploadfiles">
+                <h5>Upload new logo:</h5>
+                <hr class="style7" />
+                <input type="file" name="logo" class="btn btn-secondary my-3"/>
+                <input asp-for="UserId" type="hidden" />
+                <input type="submit" value="Upload" class="btn btn-secondary my-3" />
+            </form>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+
+@*<div class="col-md-8 col-sm-12 mx-auto">
+        <h4>@ViewData["Title"]</h4>
         <form id="profile-form" method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
@@ -20,13 +88,13 @@
                 {
                     <div class="input-group">
                         <input asp-for="Input.Email" class="form-control" />
-                        <span class="input-group-addon" aria-hidden="true"><span class="glyphicon glyphicon-ok text-success"></span></span>
+                        <span class="input-group-addon" aria-hidden="true"><span class="icon-ok-squared text-success"></span></span>
                     </div>
                 }
                 else
                 {
                     <input asp-for="Input.Email" class="form-control" />
-                    <button id="email-verification" type="submit" asp-page-handler="SendVerificationEmail" class="btn btn-link">Send verification email</button>
+                    <button id="email-verification" type="submit" asp-page-handler="SendVerificationEmail" class="btn btn-link bright">Send verification email</button>
                 }
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
@@ -40,10 +108,28 @@
                 <input asp-for="Input.PhoneNumber" class="form-control" />
                 <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-default">Save</button>
+            <div class="mt-5 text-right ">
+                <button type="submit" class="btn btn-default">Save</button>
+            </div>
         </form>
-    </div>
-</div>
+        <h5 class="bg-warning p-2">@TempData["Msg"]</h5>
+        <form method="post" enctype="multipart/form-data" asp-area="manager" asp-controller="settings" asp-action="uploadfiles">
+            <div class="form-group">
+                <div class="col-md-10">
+                    <p>Upload your logo:</p>
+                    <input type="file" name="logo" />
+                    <input asp-for="UserId" type="hidden" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <input type="submit" value="Upload" class="btn btn-secondary" />
+                </div>
+            </div>
+        </form>
+
+    </div>*@
+
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

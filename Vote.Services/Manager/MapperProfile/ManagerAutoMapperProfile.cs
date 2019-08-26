@@ -30,7 +30,7 @@ namespace Vote.Services.Manager.MapperProfile
 
             this.CreateMap<Event, EventFullModel>()
                 .ForMember(e => e.EventCode, opt => opt.MapFrom(src => src.Code))
-                .ForMember(e => e.ActiveQuestions, opt => opt.Ignore())
+                .ForMember(e => e.IncomingQuestions, opt => opt.Ignore())
                 .ForMember(e => e.ArchivedQuestions, opt => opt.Ignore());
 
             this.CreateMap<Reply, ReplyViewModel>();

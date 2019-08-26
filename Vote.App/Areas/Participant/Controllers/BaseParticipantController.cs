@@ -6,6 +6,6 @@ namespace Vote.App.Areas.Participant.Controllers
     [Area(RoleType.Participant)]
     public abstract class BaseParticipantController : Controller
     {
-        protected readonly string BaseUrl = "/home/index";
+        protected readonly string BaseUrl = "/main/home/index";
     }
 }

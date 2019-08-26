@@ -150,6 +150,8 @@ namespace Vote.Data.Migrations
 
                     b.Property<bool>("IsDeleted");
 
+                    b.Property<bool>("IsModerated");
+
                     b.Property<DateTime>("StartDate");
 
                     b.Property<string>("Title")
@@ -259,6 +261,8 @@ namespace Vote.Data.Migrations
 
                     b.Property<bool>("IsDeleted");
 
+                    b.Property<bool>("IsReviewed");
+
                     b.Property<DateTime>("PublishedOn");
 
                     b.Property<int>("Upvotes");
@@ -318,6 +322,8 @@ namespace Vote.Data.Migrations
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
+
+                    b.Property<bool>("HasLogo");
 
                     b.Property<string>("Language");
 

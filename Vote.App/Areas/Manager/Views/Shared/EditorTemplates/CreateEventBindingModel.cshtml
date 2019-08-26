@@ -1,7 +1,6 @@
 ﻿@model CreateEventBindingModel
 
-<form asp-area="Manager" asp-controller="Activities" asp-action="Create" method="post">
-    <hr />
+<form asp-area="Manager" asp-controller="Activities" asp-action="Create" method="post">    
     <div asp-validation-summary="All" class="text-danger"></div>
     <div class="form-group">
         <label asp-for="Title"></label>
@@ -20,6 +19,14 @@
             <span class="checkmark"></span>
         </label>
         <span asp-validation-for="AnonymousAllowed" class="text-danger"></span>
+    </div>
+    <div class="my-5">
+        <label class="custom-checkbox" data-toggle="tooltip" data-placement="bottom" title="Review all questions before they go live." asp-for="IsModerated">
+            Moderation is ON
+            <input type="checkbox" asp-for="IsModerated">
+            <span class="checkmark"></span>
+        </label>
+        <span asp-validation-for="IsModerated" class="text-danger"></span>
     </div>
     <div class="row">
         <div class="form-group col-6">
