@@ -7,8 +7,25 @@
     <br />
     <h1>
         <span class="text-white">THIS IS </span><img src="~/images/VoteLogoFullFinal.svg" height="36" class="mb-2" /><br />
-        The free platform<br />
-        for meetings, trainings<br />
-        events.
+        <span id="intro" style="display:block" class="text-left">
+        </span>
     </h1>
 </div>
+
+@section Scripts {
+    <script>
+        (async function () {
+            const message = 'The free platform for meetings, trainings, events.';
+            var intro = document.getElementById('intro');
+            var index = 0;
+
+            setInterval(() => {
+                intro.innerText = message.substring(0, index);
+                index++;
+                if (index === message.length) {
+                    index = 0;
+                }
+            }, 300);
+        })();
+    </script>
+}
