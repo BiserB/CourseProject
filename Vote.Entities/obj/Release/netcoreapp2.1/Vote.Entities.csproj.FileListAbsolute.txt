@@ -1,9 +1,0 @@
-D:\CSharp\FinalProject_Extended\Vote.Entities\bin\Release\netcoreapp2.1\Vote.Entities.deps.json
-D:\CSharp\FinalProject_Extended\Vote.Entities\bin\Release\netcoreapp2.1\Vote.Entities.dll
-D:\CSharp\FinalProject_Extended\Vote.Entities\bin\Release\netcoreapp2.1\Vote.Entities.pdb
-D:\CSharp\FinalProject_Extended\Vote.Entities\obj\Release\netcoreapp2.1\Vote.Entities.csprojAssemblyReference.cache
-D:\CSharp\FinalProject_Extended\Vote.Entities\obj\Release\netcoreapp2.1\Vote.Entities.csproj.CoreCompileInputs.cache
-D:\CSharp\FinalProject_Extended\Vote.Entities\obj\Release\netcoreapp2.1\Vote.Entities.AssemblyInfoInputs.cache
-D:\CSharp\FinalProject_Extended\Vote.Entities\obj\Release\netcoreapp2.1\Vote.Entities.AssemblyInfo.cs
-D:\CSharp\FinalProject_Extended\Vote.Entities\obj\Release\netcoreapp2.1\Vote.Entities.dll
-D:\CSharp\FinalProject_Extended\Vote.Entities\obj\Release\netcoreapp2.1\Vote.Entities.pdb
